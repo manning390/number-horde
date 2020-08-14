@@ -1,28 +1,50 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+    <div id="app">
+        <div class="container">
+            <h2 class="text-red-400 strong mt-2 text-center">Number Horde</h2>
+            <ConnectInput v-if="connection === null" />
+            <FireInput v-if="connection !== null" />
+        </div>
+    </div>
 </template>
-
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import ConnectInput from './components/ConnectInput';
+import FireInput from './components/FireInput';
 
 export default {
-  name: "App",
-  components: {
-    HelloWorld
-  }
+    name: "App",
+    components: {
+        ConnectInput,
+        FireInput
+    },
+    data() {
+        return {
+            connection: null,
+        };
+    },
+    // created() {
+    //     console.log("Starting connection to WebSocket Server");
+    //     this.connection = new WebSocket("wss://echo.websocket.org");
+
+    //     this.connection.onmessage = (e) => {
+    //         console.log(e);
+    //     }
+
+    //     this.connection.onopen = (e) => {
+    //         console.log(e);
+    //         console.log("Successfully connected to the echo websocket server!");
+    //     }
+    // },
+    methods: {
+        sendMessage(message) {
+            console.log(this.connection);
+            this.connection.send(message);
+        },
+    }
 };
 </script>
-
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body {
+    @apply text-white bg-black;
 }
 </style>
