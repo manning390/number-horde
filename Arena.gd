@@ -29,7 +29,13 @@ func _exit_tree():
 
 func _connected(id, proto):
 	print("Client %d connected with protocol: %s" % [id, proto])
-	_send(id, "Hello there!")
+	var pkt = {
+		"method": "simple",
+		"data": {
+			"msg": "Hello there!"
+		}
+	}
+	_sendPkt(id, pkt)
 
 func _close_request(id, code, reason):
 	print("Client %d disconnecting with code: %d, reason: %s" % [id, code, reason])
@@ -39,12 +45,13 @@ func _disconnected(id, was_clean = false):
 
 	
 func _on_data(id):
-	var pkt = _server.get_peer(id).get_packet()
-	print("Got data from client %d: %s ... echoing" % [id, pkt.get_string_from_utf8()])
-	_server.get_peer(id).put_packet(pkt)
+	var pkt = parse_json(_server.get_peer(id).get_packet().get_string_from_utf8())
+	
+	print("Got data from client %d: %s" % [id, pkt.data.msg])
+	#_server.get_peer(id).put_packet(pkt) # echo
 
 func _process(_delta):
 	_server.poll()
 
-func _send(id, msg):
-	_server.get_peer(id).put_packet(msg.to_utf8())
+func _sendPkt(id, pkt):
+	_server.get_peer(id).put_packet(to_json(pkt).to_utf8())

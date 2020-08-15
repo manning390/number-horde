@@ -28,20 +28,42 @@ export default {
         console.log("Starting connection to WebSocket Server");
         this.connection = new WebSocket("ws://localhost:9080");
         this.connection.onmessage = async (e) => {
-            const text = await new Response(e.data).text();
-            console.log("Received", text);
-            this.sendMessage(text);
+            const encoded = await new Response(e.data).text();
+            const pkt = JSON.parse(encoded);
+
+            console.log("Received", pkt, pkt.data);
+
+            this.sendMessage("Good day sir!");
+            this.connection.close(1000, "Deliberate disconnection");
         }
         this.connection.onopen = (e) => {
             console.log(e);
             console.log("Successfully connected to the server!");
         }
+        this.connection.onerror = (e) => {
+            console.log("Error", e);
+        }
+        this.connection.onclose = (e) => {
+            console.log("Connection closed", e);
+            this.connection = null;
+        }
     },
     methods: {
+        connect() {
+
+        },
         sendMessage(message) {
             console.log("Sent:", message);
-            this.connection.send(message);
+            this.connection.send(this.createPkt("simple", message));
         },
+        createPkt(method, message) {
+            return JSON.stringify({
+                "method": method,
+                "data": {
+                    "msg": message
+                }
+            })
+        }
     }
 };
 </script>
