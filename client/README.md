@@ -1,4 +1,4 @@
-# client
+# Number-Horde-client
 
 ## Project setup
 ```
