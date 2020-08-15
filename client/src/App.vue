@@ -1,7 +1,8 @@
 <template>
-    <div id="app">
-        <div class="container">
-            <h2 class="text-red-400 strong mt-2 text-center">Number Horde</h2>
+    <div id="app" class="container m-auto center">
+        <div>
+            <h2 class="text-red-400 strong mt-2 text-center">Number Horde
+            </h2>
             <ConnectInput v-if="connection === null" />
             <FireInput v-if="connection !== null" />
         </div>
@@ -22,19 +23,17 @@ export default {
             connection: null,
         };
     },
-    // created() {
-    //     console.log("Starting connection to WebSocket Server");
-    //     this.connection = new WebSocket("wss://echo.websocket.org");
-
-    //     this.connection.onmessage = (e) => {
-    //         console.log(e);
-    //     }
-
-    //     this.connection.onopen = (e) => {
-    //         console.log(e);
-    //         console.log("Successfully connected to the echo websocket server!");
-    //     }
-    // },
+    created() {
+        console.log("Starting connection to WebSocket Server");
+        this.connection = new WebSocket("wss://echo.websocket.org");
+        this.connection.onmessage = (e) => {
+            console.log(e);
+        }
+        this.connection.onopen = (e) => {
+            console.log(e);
+            console.log("Successfully connected to the echo websocket server!");
+        }
+    },
     methods: {
         sendMessage(message) {
             console.log(this.connection);
