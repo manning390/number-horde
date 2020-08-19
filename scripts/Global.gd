@@ -8,5 +8,5 @@ func instance_node(node, location, parent):
 	node_instance.global_position = location
 	return node_instance
 
-func random_color():
+func rand_color():
 	return Color.from_hsv(randf(), 1, 1)
