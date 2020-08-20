@@ -17,6 +17,8 @@ _global_script_class_icons={
 
 config/name="Number-Horde"
 run/main_scene="res://Server.tscn"
+boot_splash/image="res://game_assets/sprites/heroes/walk_left_right/png/hero_wlr_0.png"
+boot_splash/use_filter=false
 config/icon="res://icon.png"
 
 [autoload]
@@ -25,6 +27,7 @@ Global="*res://scripts/Global.gd"
 
 [rendering]
 
+quality/filters/anisotropic_filter_level=16
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
 environment/default_environment="res://default_env.tres"

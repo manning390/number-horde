@@ -66,24 +66,28 @@ func _on_connect(id, proto):
 	print("Client %d connected" % [id])
 	
 	# Create a new player
-	var color = Global.rand_color()
+	var color_head = Global.rand_color()
+	var color_body = Global.rand_color()
+	
 	# Assuming 1024 x 600, 1/4 left side of screen with 30px m and full height with 20px m	
 	var player_instance = null
 	if (Global.node_creation_parent != null):
 		var pos = Vector2(randi() % 226 + 30, randi() % 580 + 20)
 		player_instance = Global.instance_node(player, pos, Global.node_creation_parent)
-		player_instance.modulate = color
+		player_instance.set_player_colors(color_head, color_body)
 	
 	players[id] = {
 		"id": id,
-		"color": color,
+		"color_head": color_head,
+		"color_body": color_body,
 		"ref": player_instance
 	}
 	
 	# Tell client the info
 	_sendPkt(id, "connected", {
 		"id": id,
-		"color": color.to_html().right(2), # Remove alpha channel
+		"color_head": color_head.to_html().right(2), # Remove alpha channel
+		"color_body": color_body.to_html().right(2),
 		"wait": next_wave
 	})
 	

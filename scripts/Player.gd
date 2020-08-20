@@ -17,3 +17,6 @@ func _process(delta):
 func _on_Random_walk_timer_timeout():
 	target_pos = Vector2(randi() % 224 + 30, randi() % 580 + 20)
 	walking = true
+
+func set_player_colors(color_head, color_body):
+	pass
