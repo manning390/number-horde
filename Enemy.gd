@@ -33,7 +33,7 @@ func _process(delta):
 	if !dead:
 		speed = max(base_speed, speed - ((base_speed * speed_decay) * delta))
 		
-		if speed == base_speed and surge_flag:
+		if speed == base_speed && surge_flag:
 			speed = base_speed * surge_multiplier
 			$Surge_delay_timer.start()
 			surge_flag = false
@@ -41,6 +41,8 @@ func _process(delta):
 		global_position += velocity * speed * delta
 	else:
 		$Overkill_timer.start()
+		# Spawn particles on hit
+		# Start dying animation
 
 func generate_equation():
 	randomize()
