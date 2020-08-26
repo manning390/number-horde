@@ -69,7 +69,7 @@ func spawn_zombie(count):
 		return
 	for i in count:
 		print("zombie spawned")
-		var z = Global.instance_node(zombie_node, Global.get_spawn_position(), Global.node_creation_parent)
+		var z = Global.instance_node(zombie_node, Global.get_zombie_spawn_pos(), Global.node_creation_parent)
 		z.connect("zombie_freed", self, "_on_zombie_freed")
 		zombies.append(z)
 
@@ -102,7 +102,7 @@ func _on_connect(id, proto):
 	# Assuming 1024 x 600, 1/4 left side of screen with 30px m and full height with 20px m	
 	var player_instance = null
 	if (Global.node_creation_parent != null):
-		player_instance = Global.instance_node(player, Global.get_spawn_position(true), Global.node_creation_parent)
+		player_instance = Global.instance_node(player, Global.get_player_spawn_pos(), Global.node_creation_parent)
 		player_instance.modulate = color
 	
 	players[id] = {

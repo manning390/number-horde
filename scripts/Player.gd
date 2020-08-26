@@ -31,6 +31,5 @@ func _process(delta):
 
 func _on_Random_walk_timer_timeout():
 	randomize()
-	target_pos = Vector2(randi() % 230 + 20, randi() % 560 + 20) # Stay between 0 and 250 and 20 and 580
-	target_pos = Global.get_spawn_position(true)
+	target_pos = Global.get_player_spawn_pos()
 	walking = true
