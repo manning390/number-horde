@@ -1,5 +1,7 @@
 extends Node
 
+var zombie_node = preload("res://Enemy.tscn")
+
 const PORT = 9080
 var _server = WebSocketServer.new()
 var crypto = Crypto.new()
@@ -17,6 +19,8 @@ var methodMap = {
 var player = preload("res://Player.tscn")
 
 var players = {}
+var zombies = []
+var targetable_zombies = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -41,8 +45,36 @@ func _exit_tree():
 	Global.node_creation_parent = null
 	_server.stop()
 
-func _process(_delta):
+func _process(delta):
+	# Spawn a zombie for every player there is, negative numbers ignored
+	spawn_zombie(players.size() - zombies.size())
+		
 	_server.poll()
+
+func get_targetable_zombies():
+	var out = []
+	for z in zombies:
+		if z.global_position.x < Global.screen_size.x:
+			out.append(z)
+	out.sort_custom(self, "sort_zombie_distance")
+	return out
+
+static func sort_zombie_distance(a, b):
+	if a.global_position.x < b.global_position.x:
+		return true
+	return false
+
+func spawn_zombie(count):
+	if Global.node_creation_parent == null || count <= 0:
+		return
+	for i in count:
+		print("zombie spawned")
+		var z = Global.instance_node(zombie_node, Global.get_spawn_position(), Global.node_creation_parent)
+		z.connect("zombie_freed", self, "_on_zombie_freed")
+		zombies.append(z)
+
+func _on_zombie_freed(zombie):
+	zombies.erase(zombie)
 
 func _on_close_request(id, code, reason):
 	print("Client %d disconnecting with code: %d, reason: %s" % [id, code, reason])
@@ -70,8 +102,7 @@ func _on_connect(id, proto):
 	# Assuming 1024 x 600, 1/4 left side of screen with 30px m and full height with 20px m	
 	var player_instance = null
 	if (Global.node_creation_parent != null):
-		var pos = Vector2(randi() % 226 + 30, randi() % 580 + 20)
-		player_instance = Global.instance_node(player, pos, Global.node_creation_parent)
+		player_instance = Global.instance_node(player, Global.get_spawn_position(true), Global.node_creation_parent)
 		player_instance.modulate = color
 	
 	players[id] = {
@@ -86,7 +117,7 @@ func _on_connect(id, proto):
 		"color": color.to_html().right(2), # Remove alpha channel
 		"wait": next_wave
 	})
-	
+
 func _on_disconnect(id, was_clean = false):
 	print("Client %d disconnected, clean: %s" % [id, str(was_clean)])
 	# Notify game player has left
@@ -100,5 +131,3 @@ func _on_fire(id, data):
 		_sendPkt(id, "hit", {"equation":"1+1=2"})
 	else:
 		_sendPkt(id, "miss", {})
-
-

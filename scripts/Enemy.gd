@@ -17,17 +17,21 @@ var operators = {
 	3: "/",
 }
 var speed = base_speed
-onready var velocity = global_position.direction_to(Vector2(0, global_position.y))
 var dead = false
 var surge_flag = true
 
 var equation
 var answer
+onready var equation_label = $ZLayer/Equation
+
+signal zombie_freed(zombie)
 
 func _ready():
-	global_position = Vector2(250, 250)
 	$Overkill_timer.wait_time = overkill_time
 	generate_equation()
+
+func _exit_tree():
+	emit_signal("zombie_freed", self)
 
 func _process(delta):
 	if !dead:
@@ -38,7 +42,11 @@ func _process(delta):
 			$Surge_delay_timer.start()
 			surge_flag = false
 
-		global_position += velocity * speed * delta
+		global_position += Vector2(-1, 0) * speed * delta
+		
+		# Technically this shouldn't happen because of the barricade but eh?
+		if global_position.x < -30:
+			queue_free()
 	else:
 		$Overkill_timer.start()
 		# Spawn particles on hit
@@ -53,11 +61,11 @@ func generate_equation():
 	# Let's not break math
 	if term2 == 0 && operator == 3:
 		return generate_equation()
-		
+
 	answer = calc_answer(term1, term2, operator)
 	equation = "%d %s %d" % [term1, operators[operator], term2]
 	print(equation, " = ", answer)
-	$Equation.text = equation
+	equation_label.text = equation
 
 func calc_answer(term1, term2, operator):
 	match(operator):
@@ -70,7 +78,7 @@ func calc_answer(term1, term2, operator):
 		3:
 			return float(term1) / float(term2)
 		_:
-			return 0	
+			return 0
 
 func _on_Surge_timer_timeout():
 	surge_flag = true
