@@ -12,12 +12,14 @@ func instance_node(node, location, parent):
 func rand_color():
 	randomize()
 	return Color.from_hsv(randf(), 1, 1)
-	
-func get_zombie_spawn_pos():
-	randomize()
-	return Vector2(screen_size.x + rand_range(20, 60), rand_range((screen_size.y / 2) - 20, screen_size.y - 20))
-	
+
 func get_player_spawn_pos():
 	randomize()
 	return Vector2(rand_range(20, 250), rand_range((screen_size.y / 2) - 20, screen_size.y - 20))
+	
+func get_zombie_spawn_pos():
+	randomize()
+	return Vector2(screen_size.x + rand_range(20, screen_size.x / 2), rand_range((screen_size.y / 2) - 20, screen_size.y - 20))
+	
+
 

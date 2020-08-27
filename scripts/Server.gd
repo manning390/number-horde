@@ -1,6 +1,9 @@
 extends Node
 
-var zombie_node = preload("res://Enemy.tscn")
+var player_node = preload("res://scenes/Player.tscn")
+var zombie_node = preload("res://scenes/Zombie.tscn")
+
+var TEST = 0
 
 const PORT = 9080
 var _server = WebSocketServer.new()
@@ -15,8 +18,6 @@ var next_wave = 0
 var methodMap = {
 	"fire": funcref(self, "_on_fire"),
 }
-
-var player = preload("res://Player.tscn")
 
 var players = {}
 var zombies = []
@@ -40,6 +41,9 @@ func _ready():
 		set_process(false)
 	elif err == OK:
 		print("Server started")
+	
+	for i in 2:
+		spawn_player(i, true)
 
 func _exit_tree():
 	Global.node_creation_parent = null
@@ -49,12 +53,19 @@ func _process(delta):
 	# Spawn a zombie for every player there is, negative numbers ignored
 	spawn_zombie(players.size() - zombies.size())
 		
+		
+	TEST += delta
+	if TEST >= 0.5:
+		TEST = 0
+		randomize()
+		_on_fire(1, {"shot": randi() % 21})
+		
 	_server.poll()
 
 func get_targetable_zombies():
 	var out = []
 	for z in zombies:
-		if z.global_position.x < Global.screen_size.x:
+		if z.global_position.x < Global.screen_size.x && z.global_position.x > 0:
 			out.append(z)
 	out.sort_custom(self, "sort_zombie_distance")
 	return out
@@ -68,13 +79,35 @@ func spawn_zombie(count):
 	if Global.node_creation_parent == null || count <= 0:
 		return
 	for i in count:
-		print("zombie spawned")
 		var z = Global.instance_node(zombie_node, Global.get_zombie_spawn_pos(), Global.node_creation_parent)
 		z.connect("zombie_freed", self, "_on_zombie_freed")
 		zombies.append(z)
 
 func _on_zombie_freed(zombie):
 	zombies.erase(zombie)
+
+func spawn_player(id, isMock = false):
+	# Create a new player
+	var color = Global.rand_color()
+	# Assuming 1024 x 600, 1/4 left side of screen with 30px m and full height with 20px m	
+	var player_instance = null
+	if (Global.node_creation_parent != null):
+		player_instance = Global.instance_node(player_node, Global.get_player_spawn_pos(), Global.node_creation_parent)
+		player_instance.modulate = color
+	
+	players[id] = {
+		"id": id,
+		"color": color,
+		"instance": player_instance
+	}
+	
+	# Tell client the info
+	if !isMock:
+		_sendPkt(id, "connected", {
+			"id": id,
+			"color": color.to_html().right(2), # Remove alpha channel
+			"wait": next_wave
+		})
 
 func _on_close_request(id, code, reason):
 	print("Client %d disconnecting with code: %d, reason: %s" % [id, code, reason])
@@ -97,37 +130,23 @@ func _sendPkt(id, method, data):
 func _on_connect(id, proto):
 	print("Client %d connected" % [id])
 	
-	# Create a new player
-	var color = Global.rand_color()
-	# Assuming 1024 x 600, 1/4 left side of screen with 30px m and full height with 20px m	
-	var player_instance = null
-	if (Global.node_creation_parent != null):
-		player_instance = Global.instance_node(player, Global.get_player_spawn_pos(), Global.node_creation_parent)
-		player_instance.modulate = color
-	
-	players[id] = {
-		"id": id,
-		"color": color,
-		"ref": player_instance
-	}
-	
-	# Tell client the info
-	_sendPkt(id, "connected", {
-		"id": id,
-		"color": color.to_html().right(2), # Remove alpha channel
-		"wait": next_wave
-	})
+	spawn_player(id)
 
 func _on_disconnect(id, was_clean = false):
 	print("Client %d disconnected, clean: %s" % [id, str(was_clean)])
 	# Notify game player has left
 	# Remove Instance
-	players[id].ref.queue_free()
+	players[id].instance.queue_free()
 	# Remove player
 	players.erase(id)
 
 func _on_fire(id, data):
-	if randi() % 2 == 0:
-		_sendPkt(id, "hit", {"equation":"1+1=2"})
-	else:
-		_sendPkt(id, "miss", {})
+#	print("player: ", id, " shot ", data.shot)
+	targetable_zombies = get_targetable_zombies()
+	for z in targetable_zombies:
+		if z.answer == data.shot:
+			players[id].instance.fire(z)
+#			_sendPkt(id, "hit", {"equation": z.equation})
+			return
+	players[id].instance.fire(null)
+#	_sendPkt(id, "miss", {})
