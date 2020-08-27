@@ -42,7 +42,7 @@ func _ready():
 	elif err == OK:
 		print("Server started")
 	
-	for i in 2:
+	for i in 20:
 		spawn_player(i, true)
 
 func _exit_tree():
@@ -53,12 +53,11 @@ func _process(delta):
 	# Spawn a zombie for every player there is, negative numbers ignored
 	spawn_zombie(players.size() - zombies.size())
 		
-		
 	TEST += delta
-	if TEST >= 0.5:
+	if TEST >= 0.2:
 		TEST = 0
 		randomize()
-		_on_fire(1, {"shot": randi() % 21})
+		_on_fire(randi() % players.size(), {"shot": randi() % 10})
 		
 	_server.poll()
 
@@ -127,7 +126,7 @@ func _sendPkt(id, method, data):
 		"data": data
 	}).to_utf8())
 
-func _on_connect(id, proto):
+func _on_connect(id, _proto):
 	print("Client %d connected" % [id])
 	
 	spawn_player(id)

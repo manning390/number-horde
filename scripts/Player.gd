@@ -35,8 +35,10 @@ func fire(zombie):
 		$Random_walk_timer.wait_time = 0.5
 		$Random_walk_timer.start()
 		var bullet = Global.instance_node(bullet_node, $Gun_position.global_position, Global.node_creation_parent)
+		
 		if zombie != null:
 			bullet.zombie = zombie
+			zombie.connect("zombie_freed", bullet, "_on_zombie_freed")
 		else:
 			bullet.isMiss = true
 

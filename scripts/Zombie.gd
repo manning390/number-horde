@@ -64,7 +64,7 @@ func generate_equation():
 
 	answer = calc_answer(term1, term2, operator)
 	equation = "%d %s %d" % [term1, operators[operator], term2]
-	print(equation, " = ", answer)
+#	print(equation, " = ", answer)
 	equation_label.text = equation
 
 func calc_answer(term1, term2, operator):
