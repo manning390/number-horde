@@ -2,16 +2,19 @@ extends Node
 
 var player_node = preload("res://scenes/Player.tscn")
 var zombie_node = preload("res://scenes/Zombie.tscn")
+var notify_node = preload("res://scenes/FallingText.tscn")
 
 var TEST = 0
 
+var ip = "127.0.0.1"
 const PORT = 9080
+
 var _server = WebSocketServer.new()
-var crypto = Crypto.new()
+#var _upnp = UPNP.new()
+#var upnp_err = 1
+#var crypto = Crypto.new()
 # var key = crypto.generate_rsa(4096)
 # var cert = crypto.generate_self_signed_certificate(key, "CN=localhost,O=myorganisation,C=IT")
-
-var next_wave = 0
 
 # Maps pkt method strings to function calls
 # See _on_data for call
@@ -23,8 +26,23 @@ var players = {}
 var zombies = []
 var targetable_zombies = []
 
+const MAX_NOTIFY = 6
+var notify_queue = []
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+#	upnp_err = _upnp.discover()
+##		print("Port mapping failed, will need to port forward")
+#	if upnp_err == OK:
+#		print("upnp OK")
+#
+#		print(_upnp.get_gateway().query_external_address())
+#		_upnp.add_port_mapping(PORT)
+#		var _ip = _upnp.query_external_address()
+#		print("ext ip ", _ip)
+#		if _ip != "":
+#			ip = _ip
+	
 	Global.node_creation_parent = self
 	_server.connect("client_connected", self, "_on_connect")
 	_server.connect("client_disconnected", self, "_on_disconnect")
@@ -44,10 +62,18 @@ func _ready():
 	
 	for i in 20:
 		spawn_player(i, true)
+	
+	# Display our IP
+#	$UI/Control/IP.text = "Server: %s:%d" % [ip, PORT]
+
+	# Run first round of notifications immediately
+	_on_Notify_timer_timeout()	
 
 func _exit_tree():
 	Global.node_creation_parent = null
 	_server.stop()
+#	if upnp_err == 0:
+#		_upnp.delete_port_mapping(PORT)
 
 func _process(delta):
 	# Spawn a zombie for every player there is, negative numbers ignored
@@ -100,12 +126,14 @@ func spawn_player(id, isMock = false):
 		"instance": player_instance
 	}
 	
+	notify("Player %d connected" % [id])
+	
 	# Tell client the info
 	if !isMock:
 		_sendPkt(id, "connected", {
 			"id": id,
 			"color": color.to_html().right(2), # Remove alpha channel
-			"wait": next_wave
+			"wait": 0
 		})
 
 func _on_close_request(id, code, reason):
@@ -128,12 +156,12 @@ func _sendPkt(id, method, data):
 
 func _on_connect(id, _proto):
 	print("Client %d connected" % [id])
-	
 	spawn_player(id)
 
 func _on_disconnect(id, was_clean = false):
 	print("Client %d disconnected, clean: %s" % [id, str(was_clean)])
 	# Notify game player has left
+	notify("Player %d disconnected" % [id])
 	# Remove Instance
 	players[id].instance.queue_free()
 	# Remove player
@@ -149,3 +177,16 @@ func _on_fire(id, data):
 			return
 	players[id].instance.fire(null)
 #	_sendPkt(id, "miss", {})
+
+func notify(text):
+	notify_queue.append(text)
+
+func _on_Notify_timer_timeout():
+	var notification_count  = notify_queue.size()
+	if Global.node_creation_parent != null && notification_count > 0:
+		var text = notify_queue.pop_front()
+		for i in min(notification_count, MAX_NOTIFY)-1:
+			text += "\n" + notify_queue.pop_front()
+		var notify_inst = Global.instance_node(notify_node, Vector2(20, 20), Global.node_creation_parent)
+		notify_inst.set_text(text)
+		notify_inst.start()
