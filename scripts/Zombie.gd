@@ -89,10 +89,14 @@ func _on_Surge_timer_timeout():
 func _on_Overkill_timer_timeout():
 	queue_free()
 
-func _on_Hitbox_area_entered(area):
-	if area.is_in_group("Enemy_damager"):
-		modulate = Color.white
-		area.get_parent().queue_free() # Delete the bullet, not the hitbox
-		if !dead:
-			dead = true
-			$Overkill_timer.start()
+func shot():
+	if !dead:
+		dead = true
+		$Overkill_timer.start()
+#func _on_Hitbox_area_entered(area):
+#	if area.is_in_group("Enemy_damager"):
+#		modulate = Color.white
+#		area.get_parent().queue_free() # Delete the bullet, not the hitbox
+#		if !dead:
+#			dead = true
+#			$Overkill_timer.start()

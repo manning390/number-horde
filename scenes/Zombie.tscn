@@ -1,13 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/Zombie.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
-[ext_resource path="res://game_assets/fonts/nightmare-extended-v1/NightmareExtended.ttf" type="DynamicFontData" id=3]
-
-[sub_resource type="DynamicFont" id=1]
-outline_size = 1
-outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 3 )
+[ext_resource path="res://fonts/nightmare_outline.tres" type="DynamicFont" id=3]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 30, 30 )
@@ -29,7 +24,7 @@ anchor_left = 0.5
 anchor_right = 0.5
 margin_right = 40.0
 margin_bottom = 16.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = ExtResource( 3 )
 text = "9 + 3"
 align = 1
 __meta__ = {
@@ -52,4 +47,3 @@ one_shot = true
 shape = SubResource( 2 )
 [connection signal="timeout" from="Surge_delay_timer" to="." method="_on_Surge_timer_timeout"]
 [connection signal="timeout" from="Overkill_timer" to="." method="_on_Overkill_timer_timeout"]
-[connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
