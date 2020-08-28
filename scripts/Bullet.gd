@@ -12,7 +12,7 @@ func _process(delta):
 	# If we missed, first frame lets shoot some random thing.
 	if isMiss && miss_once:
 		miss_once = false
-		target = _get_miss()
+		target = get_miss_target()
 
 	# If the zombie isn't null, bullet the forehead stupid
 	if zombie != null:
@@ -31,7 +31,7 @@ func _on_zombie_freed(_z):
 	zombie = null
 	stop_looking = true
 
-func _get_miss():
+func get_miss_target():
 	randomize()
 	var x = rand_range(100 if randf() < 0.7 else -10, Global.screen_size.x / 2)
 	# above or below screen by 40
@@ -43,3 +43,6 @@ func _on_Hitbox_area_entered(area):
 	if area.get_parent() == zombie:
 		zombie.shot()
 		queue_free()
+
+func _on_Free_timer_timeout():
+	queue_free()

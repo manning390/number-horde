@@ -1,5 +1,12 @@
 extends Node2D
 
+onready var floating_text = preload("res://scenes/FloatingText.tscn")
+
+onready var overkill_timer = $Overkill_timer
+onready var equation_label = $ZLayer/Equation
+onready var surge_timer = $Surge_delay_timer
+onready var target = $Target
+
 export(int) var base_speed = 20
 export(float) var surge_multiplier = 3.5
 export(float) var speed_decay = 7
@@ -19,19 +26,19 @@ var operators = {
 var speed = base_speed
 var dead = false
 var surge_flag = true
-var surge_delay # Saves the original timer value so our first surge is random
+var original_surge_delay # Saves the original timer value so our first surge is random
 var first_surge = true
 
 var equation
 var answer
-onready var equation_label = $ZLayer/Equation
+
 
 signal zombie_freed(zombie)
 
 func _ready():
-	surge_delay = $Surge_delay_timer.wait_time
-	$Surge_delay_timer.wait_time = rand_range(0.3, 2)
-	$Overkill_timer.wait_time = overkill_time
+	original_surge_delay = surge_timer.wait_time
+	surge_timer.wait_time = rand_range(0.3, 2)
+	overkill_timer.wait_time = overkill_time
 	generate_equation()
 
 func _exit_tree():
@@ -43,7 +50,7 @@ func _process(delta):
 		
 		if speed == base_speed && surge_flag:
 			speed = base_speed * surge_multiplier
-			$Surge_delay_timer.start()
+			surge_timer.start()
 			surge_flag = false
 
 		global_position += Vector2(-1, 0) * speed * delta
@@ -83,20 +90,19 @@ func calc_answer(term1, term2, operator):
 func _on_Surge_timer_timeout():
 	surge_flag = true
 	if first_surge:
-		$Surge_delay_timer.wait_time = surge_delay
+		surge_timer.wait_time = original_surge_delay
 		first_surge = false
 
 func _on_Overkill_timer_timeout():
 	queue_free()
 
 func shot():
+	if Global.node_creation_parent != null:
+		var dmg = Global.instance_node(floating_text, target.global_position, Global.node_creation_parent)
+		if !dead:
+			dmg.set_color(Color(1,0,0))
+		dmg.set_text(answer)
+		dmg.start()
 	if !dead:
 		dead = true
-		$Overkill_timer.start()
-#func _on_Hitbox_area_entered(area):
-#	if area.is_in_group("Enemy_damager"):
-#		modulate = Color.white
-#		area.get_parent().queue_free() # Delete the bullet, not the hitbox
-#		if !dead:
-#			dead = true
-#			$Overkill_timer.start()
+		overkill_timer.start()

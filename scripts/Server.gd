@@ -114,6 +114,7 @@ func _on_zombie_freed(zombie):
 func spawn_player(id, isMock = false):
 	# Create a new player
 	var color = Global.rand_color()
+	var pname = Global.rand_name()
 	# Assuming 1024 x 600, 1/4 left side of screen with 30px m and full height with 20px m	
 	var player_instance = null
 	if (Global.node_creation_parent != null):
@@ -122,6 +123,7 @@ func spawn_player(id, isMock = false):
 	
 	players[id] = {
 		"id": id,
+		"name": pname,
 		"color": color,
 		"instance": player_instance
 	}
@@ -132,6 +134,7 @@ func spawn_player(id, isMock = false):
 	if !isMock:
 		_sendPkt(id, "connected", {
 			"id": id,
+			"name": pname,
 			"color": color.to_html().right(2), # Remove alpha channel
 			"wait": 0
 		})

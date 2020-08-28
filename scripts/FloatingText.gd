@@ -1,5 +1,6 @@
 extends Position2D
 
+onready var label = $Label
 onready var tween = $Tween
 
 var velocity = Vector2(0, -100)
@@ -9,8 +10,7 @@ var mass = 200
 # warning-ignore:unused_class_variable
 var text setget set_text, get_text
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
+func start():
 	tween.interpolate_property(self, "modulate",
 		Color(modulate.r, modulate.g, modulate.b, modulate.a),
 		Color(modulate.r, modulate.g, modulate.b, 0.0),
@@ -37,7 +37,10 @@ func _process(delta):
 	position += velocity * delta
 
 func set_text(new_text):
-	$Label.text = str(new_text)
+	label.text = str(new_text)
 
 func get_text():
-	return $Label.text
+	return label.text
+
+func set_color(color):
+	label.set("custom_colors/font_color", color)

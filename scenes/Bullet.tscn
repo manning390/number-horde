@@ -25,5 +25,9 @@ __meta__ = {
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 rect = Rect2( -30, -30, 60, 60 )
+
+[node name="Free_timer" type="Timer" parent="."]
+wait_time = 5.0
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="timeout" from="Free_timer" to="." method="_on_Free_timer_timeout"]
