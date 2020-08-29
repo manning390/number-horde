@@ -20,7 +20,6 @@ position = Vector2( -20, -51 )
 z_index = 50
 
 [node name="Equation" type="Label" parent="ZLayer"]
-anchor_left = 0.5
 anchor_right = 0.5
 margin_right = 40.0
 margin_bottom = 16.0

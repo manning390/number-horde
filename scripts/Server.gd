@@ -4,7 +4,13 @@ var player_node = preload("res://scenes/Player.tscn")
 var zombie_node = preload("res://scenes/Zombie.tscn")
 var notify_node = preload("res://scenes/FallingText.tscn")
 
+onready var countdown_label = $UI/Control/Countdown
+onready var start_timer = $Start_timer
+
+var countdown_color = 0
+
 var TEST = 0
+const MOCK_PLAYERS = 20
 
 var ip = "127.0.0.1"
 const PORT = 9080
@@ -28,6 +34,8 @@ var targetable_zombies = []
 
 const MAX_NOTIFY = 6
 var notify_queue = []
+
+var game_started = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -60,7 +68,7 @@ func _ready():
 	elif err == OK:
 		print("Server started")
 	
-	for i in 20:
+	for i in MOCK_PLAYERS:
 		spawn_player(i, true)
 	
 	# Display our IP
@@ -77,13 +85,16 @@ func _exit_tree():
 
 func _process(delta):
 	# Spawn a zombie for every player there is, negative numbers ignored
-	spawn_zombie(players.size() - zombies.size())
+	if game_started:
+		spawn_zombie(players.size() - zombies.size())
+	else:
+		update_countdown()
 		
 	TEST += delta
 	if TEST >= 0.2:
 		TEST = 0
 		randomize()
-		_on_fire(randi() % players.size(), {"shot": randi() % 10})
+		_on_fire(randi() % MOCK_PLAYERS, {"shot": randi() % 10})
 		
 	_server.poll()
 
@@ -171,15 +182,16 @@ func _on_disconnect(id, was_clean = false):
 	players.erase(id)
 
 func _on_fire(id, data):
-#	print("player: ", id, " shot ", data.shot)
-	targetable_zombies = get_targetable_zombies()
-	for z in targetable_zombies:
-		if z.answer == data.shot:
-			players[id].instance.fire(z)
-#			_sendPkt(id, "hit", {"equation": z.equation})
-			return
-	players[id].instance.fire(null)
-#	_sendPkt(id, "miss", {})
+	if game_started:
+		#	print("player: ", id, " shot ", data.shot)
+			targetable_zombies = get_targetable_zombies()
+			for z in targetable_zombies:
+				if z.answer == data.shot:
+					players[id].instance.fire(z)
+		#			_sendPkt(id, "hit", {"equation": z.equation})
+					return
+			players[id].instance.fire(null)
+		#	_sendPkt(id, "miss", {})
 
 func notify(text):
 	notify_queue.append(text)
@@ -193,3 +205,23 @@ func _on_Notify_timer_timeout():
 		var notify_inst = Global.instance_node(notify_node, Vector2(20, 20), Global.node_creation_parent)
 		notify_inst.set_text(text)
 		notify_inst.start()
+
+
+func _on_Start_timer_timeout():
+	game_started = true
+	countdown_color = 0
+	start_timer.queue_free()
+	countdown_label.queue_free()
+
+func update_countdown():
+	# 0 => white, 1 => yellow, 2 => orange, 3 => red
+	if countdown_color <= 0 && start_timer.time_left  <= (start_timer.wait_time / 2):
+		countdown_color = 1
+		countdown_label.set("custom_colors/font_color", Color.yellow)
+	elif countdown_color <= 1 && start_timer.time_left <= 30:
+		countdown_color = 2
+		countdown_label.set("custom_colors/font_color", Color.orange)
+	elif countdown_color <= 2 && start_timer.time_left <= 10:
+		countdown_color = 3
+		countdown_label.set("custom_colors/font_color", Color.red)
+	countdown_label.text = "%d seconds\n until night falls" % [int(start_timer.time_left)]

@@ -12,8 +12,8 @@ z_index = 10
 [node name="Control" type="Control" parent="UI"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_right = 1024.0
+margin_left = 5.0
+margin_right = 1025.0
 margin_bottom = 600.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -48,7 +48,32 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Countdown" type="Label" parent="UI/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -51.0
+margin_top = -15.5
+margin_right = 51.0
+margin_bottom = 15.5
+grow_horizontal = 2
+custom_fonts/font = ExtResource( 2 )
+text = "120
+Until Night Falls"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Notify_timer" type="Timer" parent="."]
 wait_time = 1.8
 autostart = true
+
+[node name="Start_timer" type="Timer" parent="."]
+wait_time = 120.0
+one_shot = true
+autostart = true
 [connection signal="timeout" from="Notify_timer" to="." method="_on_Notify_timer_timeout"]
+[connection signal="timeout" from="Start_timer" to="." method="_on_Start_timer_timeout"]
