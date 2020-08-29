@@ -4,7 +4,7 @@
 [ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://fonts/nightmare_outline.tres" type="DynamicFont" id=3]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 30, 30 )
 
 [node name="Zombie" type="Node2D"]
@@ -43,6 +43,6 @@ one_shot = true
 [node name="Hitbox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 [connection signal="timeout" from="Surge_delay_timer" to="." method="_on_Surge_timer_timeout"]
 [connection signal="timeout" from="Overkill_timer" to="." method="_on_Overkill_timer_timeout"]

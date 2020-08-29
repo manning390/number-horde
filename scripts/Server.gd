@@ -139,7 +139,7 @@ func spawn_player(id, isMock = false):
 		"instance": player_instance
 	}
 	
-	notify("Player %d connected" % [id])
+	notify("Player %s connected" % [pname])
 	
 	# Tell client the info
 	if !isMock:
