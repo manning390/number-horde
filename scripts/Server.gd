@@ -126,7 +126,7 @@ func spawn_player(id, isMock = false):
 	# Create a new player
 	var color = Global.rand_color()
 	var pname = Global.rand_name()
-	# Assuming 1024 x 600, 1/4 left side of screen with 30px m and full height with 20px m	
+	# Assuming 1024 x 600, 1/4 left side of screen with 30px m and full height with 20px m
 	var player_instance = null
 	if (Global.node_creation_parent != null):
 		player_instance = Global.instance_node(player_node, Global.get_player_spawn_pos(), Global.node_creation_parent)
