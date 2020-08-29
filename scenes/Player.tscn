@@ -6,6 +6,13 @@
 [node name="Player" type="Sprite"]
 texture = ExtResource( 2 )
 script = ExtResource( 1 )
+min_wait_to_walk = 5
+max_wait_to_walk = 15
 
 [node name="Random_walk_timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="Gun_position" type="Position2D" parent="."]
+position = Vector2( 30, 0 )
 [connection signal="timeout" from="Random_walk_timer" to="." method="_on_Random_walk_timer_timeout"]
