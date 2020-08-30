@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scripts/Heart.gd" type="Script" id=1]
+[ext_resource path="res://sprites/heart/heart.png" type="Texture" id=2]
+
+[node name="Heart" type="Sprite"]
+texture = ExtResource( 2 )
+script = ExtResource( 1 )
+speed = 25
+
+[node name="Free_timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+[connection signal="timeout" from="Free_timer" to="." method="_on_Free_timer_timeout"]

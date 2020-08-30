@@ -12,7 +12,7 @@ texture = ExtResource( 1 )
 offset = Vector2( -0.5, 0 )
 vframes = 4
 hframes = 3
-frame = 11
+frame = 3
 script = ExtResource( 13 )
 
 [node name="Walk_timer" type="Timer" parent="."]
@@ -24,4 +24,7 @@ anims/down = ExtResource( 2 )
 anims/pant = ExtResource( 5 )
 anims/right = ExtResource( 4 )
 anims/up = ExtResource( 3 )
+
+[node name="Heart_spawn" type="Position2D" parent="."]
+position = Vector2( 0, -10 )
 [connection signal="timeout" from="Walk_timer" to="." method="_on_Walk_timer_timeout"]

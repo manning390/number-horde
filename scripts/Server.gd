@@ -6,6 +6,7 @@ var notify_node = preload("res://scenes/FallingText.tscn")
 
 onready var countdown_label = $UI/Control/Countdown
 onready var start_timer = $Start_timer
+onready var corgi = $Corgi
 
 var countdown_color = 0
 

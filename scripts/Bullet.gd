@@ -22,7 +22,11 @@ func _process(delta):
 	if target != null:
 		if !stop_looking:
 			look_at(target)
-		global_position += velocity.rotated(rotation) * speed * delta
+		if !isMiss:
+			global_position += velocity.rotated(rotation) * speed * delta
+		else:
+			global_position += target.normalized() * speed * delta
+			
 
 func _on_VisibilityNotifier2D_screen_exited():
 	queue_free()
