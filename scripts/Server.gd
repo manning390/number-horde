@@ -45,6 +45,9 @@ var timer_reset_count = 0
 var max_zombie_spawn = 5
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if !game_started:
+		start_timer.wait_time = Global.start_time
+		start_timer.start()
 #	upnp_err = _upnp.discover()
 ##		print("Port mapping failed, will need to port forward")
 #	if upnp_err == OK:
