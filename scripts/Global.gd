@@ -159,11 +159,37 @@ const FLAVOR = [
 	"Y'all are nerds.",
 ]
 
+const SKIN_TONES = [
+	Color("fae7d0"),
+	Color("aa724b"),
+	Color("dfc183"),
+	Color("ffcc99"),
+	Color("ceab68"),
+	Color("935d37"),
+	Color("835d37"),
+	Color("feb186"),
+	Color("b98865"),
+	Color("7b4b2a"),
+	Color("c8aca3"),
+	Color("c0a183"),
+	Color("c18e74"),
+	Color("e8cda8"),
+	Color("caa661"),
+	Color("b58a3f"),
+	Color("7b4b2a"),
+	Color("573719"),
+	Color("483728"),
+]
+
 func instance_node(node, location, parent):
 	var node_instance = node.instance()
 	parent.add_child(node_instance)
 	node_instance.global_position = location
 	return node_instance
+
+func rand_skin():
+	randomize()
+	return SKIN_TONES[randi() % SKIN_TONES.size()]
 
 func rand_color():
 	randomize()
