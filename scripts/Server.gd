@@ -1,7 +1,7 @@
 extends Node
 
 enum equation_type {ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION}
-enum difficulty {EASY = 10, BASIC = 20, MEDIUM = 30, HARD = 40}
+enum difficulty {EASY = 60, BASIC = 120, MEDIUM = 180, HARD = 300}
 
 var player_node = preload("res://scenes/Player.tscn")
 var zombie_node = preload("res://scenes/Zombie.tscn")
@@ -12,7 +12,6 @@ onready var start_timer = $Start_timer
 onready var corgi = $Corgi
 
 var countdown_color = 0
-var time_passed = 0
 
 var TEST = 0
 const MOCK_PLAYERS = 20
@@ -41,7 +40,9 @@ const MAX_NOTIFY = 6
 var notify_queue = []
 
 var game_started = false
-
+var zombie_difficulty = difficulty.EASY
+var timer_reset_count = 0
+var max_zombie_spawn = 5
 # Called when the node enters the scene tree for the first time.
 func _ready():
 #	upnp_err = _upnp.discover()
@@ -89,23 +90,12 @@ func _exit_tree():
 #		_upnp.delete_port_mapping(PORT)
 
 func _process(delta):
-	var zombie_difficulty = difficulty.EASY
 	# Spawn a zombie for every player there is, negative numbers ignored
-	if time_passed <= difficulty.EASY:
-		zombie_difficulty = difficulty.EASY
-	elif time_passed <= difficulty.BASIC:
-		zombie_difficulty = difficulty.BASIC
-	elif time_passed <= difficulty.MEDIUM:
-		zombie_difficulty = difficulty.MEDIUM
-	else:
-		zombie_difficulty = difficulty.HARD
 
 	if game_started:
-		time_passed += delta
-		spawn_zombie(players.size() - zombies.size(), zombie_difficulty)
+		spawn_zombie(max_zombie_spawn - zombies.size(), zombie_difficulty)
 	else:
 		update_countdown()
-		time_passed = 0
 		
 	TEST += delta
 	if TEST >= 0.2:
@@ -255,3 +245,18 @@ func update_countdown():
 		countdown_color = 3
 		countdown_label.set("custom_colors/font_color", Color.red)
 	countdown_label.text = "%d seconds\n until night falls" % [int(start_timer.time_left)]
+
+
+func _on_Difficulty_timer_timeout():
+	timer_reset_count += 10
+	if timer_reset_count < difficulty.EASY:
+		zombie_difficulty = difficulty.EASY
+	elif timer_reset_count < difficulty.BASIC:
+		zombie_difficulty = difficulty.BASIC
+	elif timer_reset_count < difficulty.MEDIUM:
+		zombie_difficulty = difficulty.MEDIUM
+	else:
+		zombie_difficulty = difficulty.HARD
+		
+	var exponential = 1 + PI/10
+	max_zombie_spawn = pow(timer_reset_count/2, exponential) + players.size()

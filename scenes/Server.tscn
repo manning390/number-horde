@@ -129,6 +129,10 @@ wait_time = 3.0
 one_shot = true
 autostart = true
 
+[node name="Difficulty_timer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
 [node name="Corgi_layer" type="Node2D" parent="."]
 z_index = 5
 
@@ -281,3 +285,4 @@ frame = 3
 playing = true
 [connection signal="timeout" from="Notify_timer" to="." method="_on_Notify_timer_timeout"]
 [connection signal="timeout" from="Start_timer" to="." method="_on_Start_timer_timeout"]
+[connection signal="timeout" from="Difficulty_timer" to="." method="_on_Difficulty_timer_timeout"]
