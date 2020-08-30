@@ -1,5 +1,8 @@
 extends Node
 
+enum equation_type {ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION}
+enum difficulty {EASY = 10, BASIC = 20, MEDIUM = 30, HARD = 40}
+
 var player_node = preload("res://scenes/Player.tscn")
 var zombie_node = preload("res://scenes/Zombie.tscn")
 var notify_node = preload("res://scenes/FallingText.tscn")
@@ -9,6 +12,7 @@ onready var start_timer = $Start_timer
 onready var corgi = $Corgi
 
 var countdown_color = 0
+var time_passed = 0
 
 var TEST = 0
 const MOCK_PLAYERS = 20
@@ -85,11 +89,23 @@ func _exit_tree():
 #		_upnp.delete_port_mapping(PORT)
 
 func _process(delta):
+	var zombie_difficulty = difficulty.EASY
 	# Spawn a zombie for every player there is, negative numbers ignored
+	if time_passed <= difficulty.EASY:
+		zombie_difficulty = difficulty.EASY
+	elif time_passed <= difficulty.BASIC:
+		zombie_difficulty = difficulty.BASIC
+	elif time_passed <= difficulty.MEDIUM:
+		zombie_difficulty = difficulty.MEDIUM
+	else:
+		zombie_difficulty = difficulty.HARD
+
 	if game_started:
-		spawn_zombie(players.size() - zombies.size())
+		time_passed += delta
+		spawn_zombie(players.size() - zombies.size(), zombie_difficulty)
 	else:
 		update_countdown()
+		time_passed = 0
 		
 	TEST += delta
 	if TEST >= 0.2:
@@ -112,12 +128,25 @@ static func sort_zombie_distance(a, b):
 		return true
 	return false
 
-func spawn_zombie(count):
+func spawn_zombie(count, zombie_difficulty):
 	if Global.node_creation_parent == null || count <= 0:
 		return
 	for i in count:
+		var level_ceiling = 0
+		match zombie_difficulty:
+			difficulty.EASY:
+				level_ceiling = 0
+			difficulty.BASIC:
+				level_ceiling = 1
+			difficulty.MEDIUM:
+				level_ceiling = 2
+			difficulty.HARD:
+				level_ceiling = 3
+		
+		var equation_type = randi() % (level_ceiling + 1)
 		var z = Global.instance_node(zombie_node, Global.get_zombie_spawn_pos(), Global.node_creation_parent)
 		z.connect("zombie_freed", self, "_on_zombie_freed")
+		z.start(equation_type)
 		zombies.append(z)
 
 func _on_zombie_freed(zombie):

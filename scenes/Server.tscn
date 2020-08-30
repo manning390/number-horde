@@ -1,10 +1,29 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scripts/Server.gd" type="Script" id=1]
 [ext_resource path="res://fonts/buried-outline.tres" type="DynamicFont" id=2]
 [ext_resource path="res://scenes/Corgi.tscn" type="PackedScene" id=3]
 [ext_resource path="res://sprites/star/star2_sheet.png" type="Texture" id=4]
 [ext_resource path="res://sprites/star/star1_sheet.png" type="Texture" id=5]
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends Label
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -77,6 +96,7 @@ grow_horizontal = 2
 custom_fonts/font = ExtResource( 2 )
 text = "SCORE"
 align = 1
+script = SubResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -210,55 +230,54 @@ frame = 1
 position = Vector2( 100, 100 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="AnimStar2" type="AnimatedSprite" parent="Sky_layer"]
 position = Vector2( 783.325, 75.6697 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 1
 playing = true
 
 [node name="AnimStar3" type="AnimatedSprite" parent="Sky_layer"]
 position = Vector2( 784.66, 194.47 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="AnimStar4" type="AnimatedSprite" parent="Sky_layer"]
 position = Vector2( 892.782, 233.181 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="AnimStar5" type="AnimatedSprite" parent="Sky_layer"]
 position = Vector2( 357.511, 89.0181 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="AnimStar8" type="AnimatedSprite" parent="Sky_layer"]
 position = Vector2( 277.421, 163.769 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="AnimStar6" type="AnimatedSprite" parent="Sky_layer"]
 position = Vector2( 874.094, 32.9548 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 1
 playing = true
 
 [node name="AnimStar7" type="AnimatedSprite" parent="Sky_layer"]
 position = Vector2( 645.836, 142.412 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
+frame = 3
 playing = true
 [connection signal="timeout" from="Notify_timer" to="." method="_on_Notify_timer_timeout"]
 [connection signal="timeout" from="Start_timer" to="." method="_on_Start_timer_timeout"]

@@ -181,6 +181,13 @@ const SKIN_TONES = [
 	Color("483728"),
 ]
 
+var operators = {
+	0: "+",
+	1: "-",
+	2: "x",
+	3: "/",
+}
+
 func instance_node(node, location, parent):
 	var node_instance = node.instance()
 	parent.add_child(node_instance)
@@ -202,10 +209,10 @@ func rand_name():
 func get_player_spawn_pos():
 	randomize()
 	return Vector2(rand_range(20, 250), rand_range((screen_size.y / 2) - 20, screen_size.y - 20))
-	
+
 func get_zombie_spawn_pos():
 	randomize()
 	return Vector2(screen_size.x + rand_range(20, screen_size.x / 2), rand_range((screen_size.y / 2) - 20, screen_size.y - 20))
-	
+
 
 

@@ -17,12 +17,6 @@ export(int, "addition", "subtraction", "multiplication", "division") var allowed
 
 export(float) var overkill_time = 1
 
-var operators = {
-	0: "+",
-	1: "-",
-	2: "x",
-	3: "/",
-}
 var speed = base_speed
 var dead = false
 var surge_flag = true
@@ -35,11 +29,11 @@ var answer
 
 signal zombie_freed(zombie)
 
-func _ready():
+func start(equation_type):
 	original_surge_delay = surge_timer.wait_time
 	surge_timer.wait_time = rand_range(0.3, 2)
 	overkill_timer.wait_time = overkill_time
-	generate_equation()
+	generate_equation(equation_type)
 
 func _exit_tree():
 	emit_signal("zombie_freed", self)
@@ -59,18 +53,18 @@ func _process(delta):
 		if global_position.x < -30:
 			queue_free()
 
-func generate_equation():
+func generate_equation(equation_type):
 	randomize()
 	var term1 = int(rand_range(min_term, max_term+1))
 	var term2 = int(rand_range(min_term, max_term+1))
-	var operator = int(rand_range(0, allowed_operators+1))
+	var operator = equation_type
 	
 	# Let's not break math
 	if term2 == 0 && operator == 3:
-		return generate_equation()
+		return generate_equation(equation_type)
 
 	answer = calc_answer(term1, term2, operator)
-	equation = "%d %s %d" % [term1, operators[operator], term2]
+	equation = "%d %s %d" % [term1, Global.operators[operator], term2]
 #	print(equation, " = ", answer)
 	equation_label.text = equation
 
