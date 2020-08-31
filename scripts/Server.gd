@@ -1,12 +1,10 @@
 extends Node
 
-enum equation_type {ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION}
-enum difficulty {EASY = 60, BASIC = 120, MEDIUM = 180, HARD = 300}
-
 var player_node = preload("res://scenes/Player.tscn")
 var zombie_node = preload("res://scenes/Zombie.tscn")
 var notify_node = preload("res://scenes/FallingText.tscn")
 
+onready var score_label = $UI/Control/Score
 onready var countdown_label = $UI/Control/Countdown
 onready var start_timer = $Start_timer
 
@@ -22,6 +20,7 @@ var _server = WebSocketServer.new()
 
 # Maps pkt method strings to function calls
 # See _on_data for call
+# Totes overkill
 var methodMap = {
 	"fire": funcref(self, "_on_fire"),
 }
@@ -34,7 +33,7 @@ const MAX_NOTIFY = 6
 var notify_queue = []
 
 var game_started = false
-var zombie_difficulty = difficulty.EASY
+var zombie_difficulty = Global.difficulty.EASY
 var timer_reset_count = 0
 var max_zombie_spawn = 5
 # Called when the node enters the scene tree for the first time.
@@ -94,7 +93,7 @@ func _process(delta):
 	if TEST >= 0.2:
 		TEST = 0
 		randomize()
-		_on_fire(randi() % MOCK_PLAYERS, {"shot": randi() % 10})
+		shoot(randi() % MOCK_PLAYERS, {"shot": randi() % 10})
 		
 	_server.poll()
 
@@ -115,25 +114,26 @@ func spawn_zombie(count, diff):
 	if Global.node_creation_parent == null || count <= 0:
 		return
 	for i in count:
-		var level_ceiling = 0
-		match diff:
-			difficulty.EASY:
-				level_ceiling = 0
-			difficulty.BASIC:
-				level_ceiling = 1
-			difficulty.MEDIUM:
-				level_ceiling = 2
-			difficulty.HARD:
-				level_ceiling = 3
-		
-		var equation_type = randi() % (level_ceiling + 1)
+		var equation_type = randi() % (Global.difficulty_operators_map[diff] + 1)
 		var z = Global.instance_node(zombie_node, Global.get_zombie_spawn_pos(), Global.node_creation_parent)
 		z.connect("zombie_freed", self, "_on_zombie_freed")
+		z.connect("zombie_hit", self, "_on_zombie_hit")
 		z.start(equation_type)
 		zombies.append(z)
 
 func _on_zombie_freed(zombie):
 	zombies.erase(zombie)
+
+func _on_zombie_hit(player_id, equation, answer, points, first):
+	Global.score += points
+	score_label.text = "SCORE\n%d" % Global.score
+	if players[player_id] != null:
+		_sendPkt(player_id, "hit", {
+			"equation": equation,
+			"answer": answer,
+			"points": points,
+			"first": first
+		})
 
 func spawn_player(id, isMock = false):
 	# Create a new player
@@ -143,6 +143,7 @@ func spawn_player(id, isMock = false):
 	var player_instance = null
 	if (Global.node_creation_parent != null):
 		player_instance = Global.instance_node(player_node, Global.get_player_spawn_pos(), Global.node_creation_parent)
+		player_instance.id = id
 		player_instance.set_color(color)
 	
 	players[id] = {
@@ -176,10 +177,11 @@ func _on_data(id):
 		print("Client %d sent unsupported pkt method: %s d" % [id, pkt.method])
 
 func _sendPkt(id, method, data):
-	_server.get_peer(id).put_packet(to_json({
-		"method": method,
-		"data": data
-	}).to_utf8())
+	if _server.has_peer(id):
+		_server.get_peer(id).put_packet(to_json({
+			"method": method,
+			"data": data
+		}).to_utf8())
 
 func _on_connect(id, _proto):
 	print("Client %d connected" % [id])
@@ -194,17 +196,16 @@ func _on_disconnect(id, was_clean = false):
 	# Remove player
 	players.erase(id)
 
-func _on_fire(id, data):
+func shoot(player_id, data):
 	if game_started:
 		#	print("player: ", id, " shot ", data.shot)
 			targetable_zombies = get_targetable_zombies()
 			for z in targetable_zombies:
 				if z.answer == data.shot:
-					players[id].instance.fire(z)
-		#			_sendPkt(id, "hit", {"equation": z.equation})
+					players[player_id].instance.shoot(z)
 					return
-			players[id].instance.fire(null)
-		#	_sendPkt(id, "miss", {})
+			players[player_id].instance.shoot(null)
+			_sendPkt(player_id, "miss", {})
 
 func notify(text):
 	notify_queue.append(text)
@@ -238,17 +239,14 @@ func update_countdown():
 		countdown_label.set("custom_colors/font_color", Color.red)
 	countdown_label.text = "%d seconds\n until night falls" % [int(start_timer.time_left)]
 
-
 func _on_Difficulty_timer_timeout():
 	timer_reset_count += 10
-	if timer_reset_count < difficulty.EASY:
-		zombie_difficulty = difficulty.EASY
-	elif timer_reset_count < difficulty.BASIC:
-		zombie_difficulty = difficulty.BASIC
-	elif timer_reset_count < difficulty.MEDIUM:
-		zombie_difficulty = difficulty.MEDIUM
-	else:
-		zombie_difficulty = difficulty.HARD
-		
+	if zombie_difficulty != Global.difficulty.HARD:
+		for d in Global.difficulty.values():
+			if timer_reset_count < d:
+				zombie_difficulty = d
+				break
+		print("difficulty now: ", zombie_difficulty)
+
 	var exponential = 1 + PI/10
 	max_zombie_spawn = pow(timer_reset_count/2, exponential) + players.size()

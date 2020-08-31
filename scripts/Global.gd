@@ -1,8 +1,13 @@
 extends Node
 
+
+
 onready var screen_size = get_viewport().size
+
 var start_time = 5
 var node_creation_parent = null
+var score = 0
+
 const NAMES = [
 	"James",
 	"Mary",
@@ -181,13 +186,21 @@ const SKIN_TONES = [
 	Color("573719"),
 	Color("483728"),
 ]
-
+enum equation_type {ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION}
+enum difficulty {EASY = 60, BASIC = 120, MEDIUM = 180, HARD = 300}
 var operators = {
 	0: "+",
 	1: "-",
 	2: "x",
 	3: "/",
 }
+var difficulty_operators_map = {
+	difficulty.EASY: 0,
+	difficulty.BASIC: 1,
+	difficulty.MEDIUM: 2,
+	difficulty.HARD: 3,
+}
+
 const SKY_COLORS = [ 
 	Color("FEB865"), # Yellow
 	Color("FE7F64"), # Peach
@@ -196,6 +209,8 @@ const SKY_COLORS = [
 	Color("493465"), # Eggplant
 	Color("1A1526"), # Purple
 ]
+
+
 
 func instance_node(node, location, parent):
 	var node_instance = node.instance()

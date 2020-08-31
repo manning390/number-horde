@@ -75,7 +75,8 @@ margin_right = 21.0
 margin_bottom = 34.0
 grow_horizontal = 2
 custom_fonts/font = ExtResource( 2 )
-text = "SCORE"
+text = "SCORE
+0"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -107,6 +108,10 @@ autostart = true
 [node name="Start_timer" type="Timer" parent="."]
 wait_time = 120.0
 one_shot = true
+autostart = true
+
+[node name="Difficulty_timer" type="Timer" parent="."]
+wait_time = 10.0
 autostart = true
 
 [node name="Corgi_layer" type="Node2D" parent="."]
@@ -210,56 +215,58 @@ frame = 1
 position = Vector2( 100, 100 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
+frame = 2
 playing = true
 
 [node name="AnimStar2" type="AnimatedSprite" parent="Sky_layer/Stars"]
 position = Vector2( 783.325, 75.6697 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 3
+frame = 1
 playing = true
 
 [node name="AnimStar3" type="AnimatedSprite" parent="Sky_layer/Stars"]
 position = Vector2( 784.66, 194.47 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
+frame = 2
 playing = true
 
 [node name="AnimStar4" type="AnimatedSprite" parent="Sky_layer/Stars"]
 position = Vector2( 892.782, 233.181 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 1
+frame = 3
 playing = true
 
 [node name="AnimStar5" type="AnimatedSprite" parent="Sky_layer/Stars"]
 position = Vector2( 357.511, 89.0181 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 1
+frame = 3
 playing = true
 
 [node name="AnimStar8" type="AnimatedSprite" parent="Sky_layer/Stars"]
 position = Vector2( 277.421, 163.769 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 1
+frame = 3
 playing = true
 
 [node name="AnimStar6" type="AnimatedSprite" parent="Sky_layer/Stars"]
 position = Vector2( 874.094, 32.9548 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 3
+frame = 1
 playing = true
 
 [node name="AnimStar7" type="AnimatedSprite" parent="Sky_layer/Stars"]
 position = Vector2( 645.836, 142.412 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 2
 playing = true
 
 [node name="Tween" type="Tween" parent="Sky_layer/Stars"]
 [connection signal="timeout" from="Notify_timer" to="." method="_on_Notify_timer_timeout"]
 [connection signal="timeout" from="Start_timer" to="." method="_on_Start_timer_timeout"]
+[connection signal="timeout" from="Difficulty_timer" to="." method="_on_Difficulty_timer_timeout"]

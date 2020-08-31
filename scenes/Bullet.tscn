@@ -24,6 +24,7 @@ rect = Rect2( -1, -1, 2, 2 )
 
 [node name="Free_timer" type="Timer" parent="."]
 wait_time = 5.0
+autostart = true
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
 [connection signal="timeout" from="Free_timer" to="." method="_on_Free_timer_timeout"]

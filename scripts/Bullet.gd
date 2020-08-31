@@ -1,5 +1,6 @@
 extends Sprite
 
+var player_id
 var zombie
 var target
 var isMiss = false
@@ -43,7 +44,7 @@ func get_miss_target():
 
 func _on_Hitbox_area_entered(area):
 	if area.get_parent() == zombie:
-		zombie.shot()
+		zombie.shot(player_id)
 		queue_free()
 
 func _on_Free_timer_timeout():
