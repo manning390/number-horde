@@ -24,12 +24,6 @@ var score
 
 export(float) var overkill_time = 1
 
-var operators = {
-	0: "+",
-	1: "-",
-	2: "x",
-	3: "/",
-}
 var speed = base_speed
 var dead = false
 var surge_flag = true
@@ -39,11 +33,11 @@ var first_surge = true
 signal zombie_freed(zombie)
 signal zombie_hit(eq, ans, score, first)
 
-func _ready():
+func start(equation_type):
 	original_surge_delay = surge_timer.wait_time
 	surge_timer.wait_time = rand_range(0.3, 2)
 	overkill_timer.wait_time = overkill_time
-	generate_equation()
+	generate_equation(equation_type)
 
 func _exit_tree():
 	emit_signal("zombie_freed", self)
@@ -51,32 +45,32 @@ func _exit_tree():
 func _process(delta):
 	if !dead:
 		speed = max(base_speed, speed - ((base_speed * speed_decay) * delta))
-		
+
 		if speed == base_speed && surge_flag:
 			speed = base_speed * surge_multiplier
 			surge_timer.start()
 			surge_flag = false
 
 		global_position += Vector2(-1, 0) * speed * delta
-		
+
 		# Technically this shouldn't happen because of the barricade but eh?
 		if global_position.x < -30:
 			queue_free()
 
-func generate_equation():
+func generate_equation(equation_type):
 	randomize()
 	term1 = int(rand_range(min_term, max_term+1))
 	term2 = int(rand_range(min_term, max_term+1))
-	operator = int(rand_range(0, allowed_operators+1))
-	
+	operator = equation_type
+
 	# Let's not break math
 	if term2 == 0 && operator == 3:
-		return generate_equation()
+		return generate_equation(equation_type)
 
 	answer = calc_answer(term1, term2, operator)
-	equation = "%d %s %d" % [term1, operators[operator], term2]
 	score = calc_score()
-#	print(equation, " = ", answer, " => ", score)
+	equation = "%d %s %d" % [term1, Global.operators[operator], term2]
+	#	print(equation, " = ", answer, " => ", score)
 	equation_label.text = equation
 
 func calc_answer(t1, t2, o):

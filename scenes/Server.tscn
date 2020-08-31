@@ -9,19 +9,42 @@
 [ext_resource path="res://scripts/Stars.gd" type="Script" id=7]
 [ext_resource path="res://sprites/pixel.png" type="Texture" id=8]
 
+[sub_resource type="GDScript" id=6]
+script/source = "extends Label
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
+
 [sub_resource type="AtlasTexture" id=1]
+flags = 4
 atlas = ExtResource( 5 )
 region = Rect2( 0, 0, 2, 2 )
 
 [sub_resource type="AtlasTexture" id=2]
+flags = 4
 atlas = ExtResource( 5 )
 region = Rect2( 2, 0, 2, 2 )
 
 [sub_resource type="AtlasTexture" id=3]
+flags = 4
 atlas = ExtResource( 5 )
 region = Rect2( 4, 0, 2, 2 )
 
 [sub_resource type="AtlasTexture" id=4]
+flags = 4
 atlas = ExtResource( 5 )
 region = Rect2( 6, 0, 2, 2 )
 
@@ -76,6 +99,7 @@ grow_horizontal = 2
 custom_fonts/font = ExtResource( 2 )
 text = "SCORE"
 align = 1
+script = SubResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -106,6 +130,10 @@ autostart = true
 [node name="Start_timer" type="Timer" parent="."]
 wait_time = 120.0
 one_shot = true
+autostart = true
+
+[node name="Difficulty_timer" type="Timer" parent="."]
+wait_time = 10.0
 autostart = true
 
 [node name="Corgi_layer" type="Node2D" parent="."]
@@ -263,3 +291,4 @@ playing = true
 [node name="Tween" type="Tween" parent="Sky_layer/Stars"]
 [connection signal="timeout" from="Notify_timer" to="." method="_on_Notify_timer_timeout"]
 [connection signal="timeout" from="Start_timer" to="." method="_on_Start_timer_timeout"]
+[connection signal="timeout" from="Difficulty_timer" to="." method="_on_Difficulty_timer_timeout"]

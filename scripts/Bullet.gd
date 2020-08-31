@@ -26,7 +26,6 @@ func _process(delta):
 			global_position += velocity.rotated(rotation) * speed * delta
 		else:
 			global_position += target.normalized() * speed * delta
-			
 
 func _on_VisibilityNotifier2D_screen_exited():
 	queue_free()
@@ -41,7 +40,6 @@ func get_miss_target():
 	# above or below screen by 40
 	var y = -40 if randi() % 2 == 0 else Global.screen_size.y + 40
 	return Vector2(x, y)
-
 
 func _on_Hitbox_area_entered(area):
 	if area.get_parent() == zombie:
