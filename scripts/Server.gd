@@ -22,7 +22,7 @@ var _server = WebSocketServer.new()
 # See _on_data for call
 # Totes overkill
 var methodMap = {
-	"fire": funcref(self, "_on_fire"),
+	"fire": funcref(self, "shoot"),
 }
 
 var players = {}
@@ -66,8 +66,8 @@ func _ready():
 	elif err == OK:
 		print("Server started")
 	
-	for i in MOCK_PLAYERS:
-		spawn_player(i, true)
+#	for i in MOCK_PLAYERS:
+#		spawn_player(i, true)
 	
 	# Display our IP
 	#$UI/Control/IP.text = "Server: %s:%d" % [ip, PORT]
@@ -89,11 +89,11 @@ func _process(delta):
 	else:
 		update_countdown()
 		
-	TEST += delta
-	if TEST >= 0.2:
-		TEST = 0
-		randomize()
-		shoot(randi() % MOCK_PLAYERS, {"shot": randi() % 10})
+#	TEST += delta
+#	if TEST >= 0.2:
+#		TEST = 0
+#		randomize()
+#		shoot(randi() % MOCK_PLAYERS, {"shot": randi() % 10})
 		
 	_server.poll()
 
@@ -171,8 +171,8 @@ func _on_data(id):
 	var raw = _server.get_peer(id).get_packet().get_string_from_utf8()
 	var pkt = parse_json(raw)
 	print("Client %d sent %s" % [id, raw])
-	if pkt.method in self.methodMap:
-		self.methodMap[pkt.method].call_func(id, pkt.data)
+	if pkt.method in methodMap:
+		methodMap[pkt.method].call_func(id, pkt.data)
 	else:
 		print("Client %d sent unsupported pkt method: %s d" % [id, pkt.method])
 
@@ -201,7 +201,7 @@ func shoot(player_id, data):
 		#	print("player: ", id, " shot ", data.shot)
 			targetable_zombies = get_targetable_zombies()
 			for z in targetable_zombies:
-				if z.answer == data.shot:
+				if z.answer == int(data.shot):
 					players[player_id].instance.shoot(z)
 					return
 			players[player_id].instance.shoot(null)
@@ -246,7 +246,7 @@ func _on_Difficulty_timer_timeout():
 			if timer_reset_count < d:
 				zombie_difficulty = d
 				break
-		print("difficulty now: ", zombie_difficulty)
+#		print("difficulty now: ", zombie_difficulty)
 
-	var exponential = 1 + PI/10
+	var exponential = 1 + (PI/20)
 	max_zombie_spawn = pow(timer_reset_count/2, exponential) + players.size()
