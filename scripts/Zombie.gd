@@ -31,7 +31,7 @@ var original_surge_delay # Saves the original timer value so our first surge is 
 var first_surge = true
 
 signal zombie_freed(zombie)
-signal zombie_hit(eq, ans, score, first)
+signal zombie_hit(player, eq, ans, score, first)
 
 func start(equation_type):
 	original_surge_delay = surge_timer.wait_time
@@ -70,11 +70,11 @@ func generate_equation(equation_type):
 	answer = calc_answer(term1, term2, operator)
 	score = calc_score()
 	equation = "%d %s %d" % [term1, Global.operators[operator], term2]
-	#	print(equation, " = ", answer, " => ", score)
+#	print(equation, " = ", answer, " => ", score)
 	equation_label.text = equation
 
 func calc_answer(t1, t2, o):
-	match(o):
+	match o:
 		0:
 			return t1 + t2
 		1:
@@ -95,12 +95,12 @@ func _on_Surge_timer_timeout():
 func _on_Overkill_timer_timeout():
 	queue_free()
 
-func shot():
+func shot(player_id):
 	if Global.node_creation_parent != null:
 		var dmg = Global.instance_node(floating_text, target.global_position, Global.node_creation_parent)
 		if !dead:
 			dmg.set_color(Color(1,0,0))
-		emit_signal("zombie_hit", equation, answer, score if !dead else score / 2, !dead)
+		emit_signal("zombie_hit", player_id, equation, answer, score if !dead else score / 2, !dead)
 		dmg.set_text(answer)
 		dmg.start()
 	if !dead:
@@ -113,7 +113,9 @@ func calc_score():
 		out += 50
 	if term2 > 5 && term2 < 9:
 		out += 50
-	if operator > 2 && (answer % 3 == 0 || answer % 8 == 0 || answer % 7 == 0 || answer % 6 == 0 || answer % 9 == 0):
+	if operator == 2 && (answer % 3 == 0 || answer % 8 == 0 || answer % 7 == 0 || answer % 6 == 0 || answer % 9 == 0):
 		out += 100
+	if operator == 3:
+		out += 150
 	out *= operator+1
 	return out

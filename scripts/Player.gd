@@ -15,7 +15,7 @@ export(int) var min_wait_to_walk = 3
 export(int) var max_wait_to_walk = 10
 
 var can_shoot = true
-var id
+var id # Client id
 
 var cur_anim
 var walking = false
@@ -55,7 +55,7 @@ func _process(delta):
 			walk_timer.start()
 			
 
-func fire(zombie):
+func shoot(zombie):
 	if Global.node_creation_parent != null:
 		# Animation fire
 		change_anim("fire")
@@ -67,6 +67,7 @@ func fire(zombie):
 
 		var bullet = Global.instance_node(bullet_node, gun_pos.global_position, Global.node_creation_parent)
 		bullet.modulate = body.modulate
+		bullet.player_id = id
 		
 		# Tell the bullet zombie inst or if it's a miss
 		if zombie != null:
