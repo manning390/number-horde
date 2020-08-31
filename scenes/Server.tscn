@@ -180,7 +180,7 @@ texture = ExtResource( 9 )
 position = Vector2( 134.831, 70.5403 )
 frames = SubResource( 27 )
 animation = "moon_phases"
-frame = 3
+frame = 4
 playing = true
 
 [node name="Star" type="Sprite" parent="Sky_layer"]
@@ -259,53 +259,54 @@ frame = 1
 position = Vector2( 100, 100 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 28 )
-frame = 3
+frame = 1
 playing = true
 
 [node name="AnimStar2" type="AnimatedSprite" parent="Sky_layer"]
 position = Vector2( 783.325, 75.6697 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 28 )
-frame = 2
 playing = true
 
 [node name="AnimStar3" type="AnimatedSprite" parent="Sky_layer"]
 position = Vector2( 784.66, 194.47 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 28 )
-frame = 3
+frame = 1
 playing = true
 
 [node name="AnimStar4" type="AnimatedSprite" parent="Sky_layer"]
 position = Vector2( 892.782, 233.181 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 28 )
+frame = 2
 playing = true
 
 [node name="AnimStar5" type="AnimatedSprite" parent="Sky_layer"]
 position = Vector2( 357.511, 89.0181 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 28 )
+frame = 2
 playing = true
 
 [node name="AnimStar8" type="AnimatedSprite" parent="Sky_layer"]
 position = Vector2( 277.421, 163.769 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 28 )
+frame = 2
 playing = true
 
 [node name="AnimStar6" type="AnimatedSprite" parent="Sky_layer"]
 position = Vector2( 874.094, 32.9548 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 28 )
-frame = 2
 playing = true
 
 [node name="AnimStar7" type="AnimatedSprite" parent="Sky_layer"]
 position = Vector2( 645.836, 142.412 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 28 )
-frame = 1
+frame = 3
 playing = true
 [connection signal="timeout" from="Notify_timer" to="." method="_on_Notify_timer_timeout"]
 [connection signal="timeout" from="Start_timer" to="." method="_on_Start_timer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://scripts/Play.gd" type="Script" id=1]
 [ext_resource path="res://fonts/titlescreen_fonts/options_font/nightmare_outline.tres" type="DynamicFont" id=2]
@@ -10,97 +10,98 @@
 [ext_resource path="res://sprites/star/star1_sheet.png" type="Texture" id=8]
 [ext_resource path="res://sprites/ground.png" type="Texture" id=9]
 [ext_resource path="res://sprites/moon/moon_spritesheet.png" type="Texture" id=10]
+[ext_resource path="res://fonts/titlescreen_fonts/paragraph_font/nightmare_outline.tres" type="DynamicFont" id=11]
 
-[sub_resource type="AtlasTexture" id=16]
+[sub_resource type="AtlasTexture" id=1]
 flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 0, 0, 2, 2 )
 
-[sub_resource type="AtlasTexture" id=17]
+[sub_resource type="AtlasTexture" id=2]
 flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 2, 0, 2, 2 )
 
-[sub_resource type="AtlasTexture" id=18]
+[sub_resource type="AtlasTexture" id=3]
 flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 4, 0, 2, 2 )
 
-[sub_resource type="AtlasTexture" id=19]
+[sub_resource type="AtlasTexture" id=4]
 
-[sub_resource type="SpriteFrames" id=20]
+[sub_resource type="SpriteFrames" id=5]
 animations = [ {
-"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
 } ]
 
-[sub_resource type="AtlasTexture" id=21]
+[sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 10 )
 region = Rect2( 52, 0, 52, 52 )
 
-[sub_resource type="AtlasTexture" id=22]
+[sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 10 )
 region = Rect2( 104, 0, 52, 52 )
 
-[sub_resource type="AtlasTexture" id=23]
+[sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 10 )
 region = Rect2( 156, 0, 52, 52 )
 
-[sub_resource type="AtlasTexture" id=24]
+[sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 10 )
 region = Rect2( 208, 0, 52, 52 )
 
-[sub_resource type="AtlasTexture" id=25]
+[sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 10 )
 region = Rect2( 260, 0, 52, 52 )
 
-[sub_resource type="AtlasTexture" id=26]
+[sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 10 )
 region = Rect2( 312, 0, 52, 52 )
 
-[sub_resource type="AtlasTexture" id=27]
+[sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 10 )
 region = Rect2( 364, 0, 52, 52 )
 
-[sub_resource type="SpriteFrames" id=28]
+[sub_resource type="SpriteFrames" id=13]
 animations = [ {
-"frames": [ null, SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ) ],
+"frames": [ null, SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
 "loop": true,
 "name": "moon_phases",
 "speed": 0.1
 } ]
 
-[sub_resource type="StyleBoxEmpty" id=1]
-
-[sub_resource type="StyleBoxEmpty" id=2]
-
-[sub_resource type="StyleBoxEmpty" id=3]
-
-[sub_resource type="StyleBoxEmpty" id=4]
-
-[sub_resource type="StyleBoxEmpty" id=5]
-
-[sub_resource type="StyleBoxEmpty" id=6]
-
-[sub_resource type="StyleBoxEmpty" id=7]
-
-[sub_resource type="StyleBoxEmpty" id=8]
-
-[sub_resource type="StyleBoxEmpty" id=9]
-
-[sub_resource type="StyleBoxEmpty" id=10]
-
-[sub_resource type="StyleBoxEmpty" id=11]
-
-[sub_resource type="StyleBoxEmpty" id=12]
-
-[sub_resource type="StyleBoxEmpty" id=13]
-
 [sub_resource type="StyleBoxEmpty" id=14]
 
 [sub_resource type="StyleBoxEmpty" id=15]
+
+[sub_resource type="StyleBoxEmpty" id=16]
+
+[sub_resource type="StyleBoxEmpty" id=17]
+
+[sub_resource type="StyleBoxEmpty" id=18]
+
+[sub_resource type="StyleBoxEmpty" id=19]
+
+[sub_resource type="StyleBoxEmpty" id=20]
+
+[sub_resource type="StyleBoxEmpty" id=21]
+
+[sub_resource type="StyleBoxEmpty" id=22]
+
+[sub_resource type="StyleBoxEmpty" id=23]
+
+[sub_resource type="StyleBoxEmpty" id=24]
+
+[sub_resource type="StyleBoxEmpty" id=25]
+
+[sub_resource type="StyleBoxEmpty" id=26]
+
+[sub_resource type="StyleBoxEmpty" id=27]
+
+[sub_resource type="StyleBoxEmpty" id=28]
 
 [node name="MainMenu" type="Control"]
 anchor_left = 0.5
@@ -195,55 +196,55 @@ frame = 1
 [node name="AnimStar1" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 100, 100 )
 scale = Vector2( 2, 2 )
-frames = SubResource( 20 )
+frames = SubResource( 5 )
+frame = 1
 playing = true
 
 [node name="AnimStar2" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 783.325, 75.6697 )
 scale = Vector2( 2, 2 )
-frames = SubResource( 20 )
-frame = 3
+frames = SubResource( 5 )
 playing = true
 
 [node name="AnimStar3" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 784.66, 194.47 )
 scale = Vector2( 2, 2 )
-frames = SubResource( 20 )
+frames = SubResource( 5 )
+frame = 1
 playing = true
 
 [node name="AnimStar4" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 892.782, 233.181 )
 scale = Vector2( 2, 2 )
-frames = SubResource( 20 )
-frame = 1
+frames = SubResource( 5 )
+frame = 2
 playing = true
 
 [node name="AnimStar5" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 357.511, 89.0181 )
 scale = Vector2( 2, 2 )
-frames = SubResource( 20 )
-frame = 1
+frames = SubResource( 5 )
+frame = 2
 playing = true
 
 [node name="AnimStar8" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 277.421, 163.769 )
 scale = Vector2( 2, 2 )
-frames = SubResource( 20 )
-frame = 1
+frames = SubResource( 5 )
+frame = 2
 playing = true
 
 [node name="AnimStar6" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 874.094, 32.9548 )
 scale = Vector2( 2, 2 )
-frames = SubResource( 20 )
-frame = 3
+frames = SubResource( 5 )
 playing = true
 
 [node name="AnimStar7" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 645.836, 142.412 )
 scale = Vector2( 2, 2 )
-frames = SubResource( 20 )
-frame = 2
+frames = SubResource( 5 )
+frame = 3
 playing = true
 
 [node name="Ground" type="Sprite" parent="Node2D"]
@@ -253,7 +254,7 @@ texture = ExtResource( 9 )
 
 [node name="Moon" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 134.831, 70.5403 )
-frames = SubResource( 28 )
+frames = SubResource( 13 )
 animation = "moon_phases"
 frame = 5
 playing = true
@@ -261,26 +262,40 @@ playing = true
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_right = 1024.0
 margin_bottom = 600.0
-custom_constants/separation = 100
+custom_constants/separation = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Title" type="Label" parent="VBoxContainer"]
-margin_top = 83.0
+[node name="Title Info" type="VBoxContainer" parent="VBoxContainer"]
+margin_top = 90.0
 margin_right = 1024.0
-margin_bottom = 166.0
+margin_bottom = 209.0
 size_flags_vertical = 6
+
+[node name="Title" type="Label" parent="VBoxContainer/Title Info"]
+margin_right = 1024.0
+margin_bottom = 83.0
 custom_fonts/font = ExtResource( 3 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 0.603922, 0.219608, 0.219608, 1 )
 text = "Number Horde"
 align = 1
 valign = 1
 
-[node name="Options" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 350.0
+[node name="StudioName" type="Label" parent="VBoxContainer/Title Info"]
+margin_top = 87.0
 margin_right = 1024.0
-margin_bottom = 534.0
+margin_bottom = 119.0
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 11 )
+custom_colors/font_color = Color( 0.619608, 0.619608, 0.619608, 1 )
+text = "A Tri-Wight Studios Game"
+align = 1
+
+[node name="Options" type="VBoxContainer" parent="VBoxContainer"]
+margin_top = 300.0
+margin_right = 1024.0
+margin_bottom = 484.0
 size_flags_vertical = 2
 custom_constants/separation = 20
 alignment = 1
@@ -291,11 +306,11 @@ margin_right = 551.0
 margin_bottom = 48.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-custom_styles/hover = SubResource( 1 )
-custom_styles/pressed = SubResource( 2 )
-custom_styles/focus = SubResource( 3 )
-custom_styles/disabled = SubResource( 4 )
-custom_styles/normal = SubResource( 5 )
+custom_styles/hover = SubResource( 14 )
+custom_styles/pressed = SubResource( 15 )
+custom_styles/focus = SubResource( 16 )
+custom_styles/disabled = SubResource( 17 )
+custom_styles/normal = SubResource( 18 )
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color_hover = Color( 0.603922, 0.219608, 0.219608, 1 )
 custom_colors/font_color_pressed = Color( 0.384314, 0.141176, 0.141176, 1 )
@@ -308,11 +323,11 @@ margin_top = 68.0
 margin_right = 617.0
 margin_bottom = 116.0
 size_flags_horizontal = 4
-custom_styles/hover = SubResource( 6 )
-custom_styles/pressed = SubResource( 7 )
-custom_styles/focus = SubResource( 8 )
-custom_styles/disabled = SubResource( 9 )
-custom_styles/normal = SubResource( 10 )
+custom_styles/hover = SubResource( 19 )
+custom_styles/pressed = SubResource( 20 )
+custom_styles/focus = SubResource( 21 )
+custom_styles/disabled = SubResource( 22 )
+custom_styles/normal = SubResource( 23 )
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color_hover = Color( 0.603922, 0.219608, 0.219608, 1 )
 custom_colors/font_color_pressed = Color( 0.384314, 0.141176, 0.141176, 1 )
@@ -325,11 +340,11 @@ margin_top = 136.0
 margin_right = 572.0
 margin_bottom = 184.0
 size_flags_horizontal = 4
-custom_styles/hover = SubResource( 11 )
-custom_styles/pressed = SubResource( 12 )
-custom_styles/focus = SubResource( 13 )
-custom_styles/disabled = SubResource( 14 )
-custom_styles/normal = SubResource( 15 )
+custom_styles/hover = SubResource( 24 )
+custom_styles/pressed = SubResource( 25 )
+custom_styles/focus = SubResource( 26 )
+custom_styles/disabled = SubResource( 27 )
+custom_styles/normal = SubResource( 28 )
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color_hover = Color( 0.603922, 0.219608, 0.219608, 1 )
 custom_colors/font_color_pressed = Color( 0.384314, 0.141176, 0.141176, 1 )
