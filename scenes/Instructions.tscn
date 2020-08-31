@@ -108,7 +108,6 @@ texture = ExtResource( 8 )
 position = Vector2( 134.831, 70.5403 )
 frames = SubResource( 8 )
 animation = "moon_phases"
-frame = 2
 playing = true
 
 [node name="Star" type="Sprite" parent="Node2D"]
@@ -187,53 +186,55 @@ frame = 1
 position = Vector2( 100, 100 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 13 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="AnimStar2" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 783.325, 75.6697 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 13 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="AnimStar3" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 784.66, 194.47 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 13 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="AnimStar4" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 892.782, 233.181 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 13 )
+frame = 3
 playing = true
 
 [node name="AnimStar5" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 357.511, 89.0181 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 13 )
+frame = 3
 playing = true
 
 [node name="AnimStar8" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 277.421, 163.769 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 13 )
+frame = 3
 playing = true
 
 [node name="AnimStar6" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 874.094, 32.9548 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 13 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="AnimStar7" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 645.836, 142.412 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 13 )
-frame = 1
 playing = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -275,13 +276,13 @@ size_flags_vertical = 3
 custom_fonts/normal_font = ExtResource( 9 )
 text = "Welcome to Number Horde!
 
-To host a number horde server you'll need to route the :9080 port in your router.
+To host a Number Horde server, you will need to route the :9080 port in your router.
 
-While night falls, have player connect via [INSERT WEBSITE HERE] where they will be spawned on the map.
+While night falls and the hordes of humber zombies roll in, players that want to join the fight connect via [INSERT WEBSITE HERE] where they will be spawned on the map. People can join the fight at any time as long as the battle is still going.
 
-To stop the zombie plague, answer the question that led to their downfall. Wrong answers don't count and will prevent you from shooting again quickly.
+To stop the zombie plague, shoot zombies by correctly answering the equations above their heads. But be careful! Wrong answers will miss and jam up your gun, preventing you from shooting again quickly.
 
-Zombies take a bit of time to die, so don't let them pile up.
+Zombies take a bit of time to die. Don't let them pile up.
 
 Have fun!"
 __meta__ = {
