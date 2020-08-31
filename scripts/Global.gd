@@ -1,7 +1,7 @@
 extends Node
 
 onready var screen_size = get_viewport().size
-var start_time = 120
+var start_time = 5
 var node_creation_parent = null
 const NAMES = [
 	"James",
@@ -188,7 +188,7 @@ const SKY_COLORS = [
 	Color("FE7F64"), # Pink
 	Color("714178"), # Plum
 	Color("493465"), # Eggplant
-	Color("362b4e"), # Purple
+	Color("1A1526"), # Purple
 ]
 
 func instance_node(node, location, parent):

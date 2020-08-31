@@ -9,7 +9,7 @@ func _ready():
 	modulate = colors[0]
 	var delay = Global.start_time / colors.size()
 	for i in colors.size()-1:
-		print(colors[i], " ", colors[i+1], " ", delay, " ", delay * i)
+#		print(colors[i], " ", colors[i+1], " ", delay, " ", delay * i)
 		tween.interpolate_property(self, "modulate",
 			colors[i],
 			colors[i+1],
