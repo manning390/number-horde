@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://scripts/Play.gd" type="Script" id=1]
 [ext_resource path="res://fonts/titlescreen_fonts/options_font/nightmare_outline.tres" type="DynamicFont" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://sprites/ground.png" type="Texture" id=9]
 [ext_resource path="res://sprites/moon/moon_spritesheet.png" type="Texture" id=10]
 [ext_resource path="res://fonts/titlescreen_fonts/paragraph_font/nightmare_outline.tres" type="DynamicFont" id=11]
+[ext_resource path="res://scripts/Quit.gd" type="Script" id=12]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -102,6 +103,16 @@ animations = [ {
 [sub_resource type="StyleBoxEmpty" id=27]
 
 [sub_resource type="StyleBoxEmpty" id=28]
+
+[sub_resource type="StyleBoxEmpty" id=29]
+
+[sub_resource type="StyleBoxEmpty" id=30]
+
+[sub_resource type="StyleBoxEmpty" id=31]
+
+[sub_resource type="StyleBoxEmpty" id=32]
+
+[sub_resource type="StyleBoxEmpty" id=33]
 
 [node name="MainMenu" type="Control"]
 anchor_left = 0.5
@@ -197,54 +208,54 @@ frame = 1
 position = Vector2( 100, 100 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 1
 playing = true
 
 [node name="AnimStar2" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 783.325, 75.6697 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
+frame = 3
 playing = true
 
 [node name="AnimStar3" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 784.66, 194.47 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 1
 playing = true
 
 [node name="AnimStar4" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 892.782, 233.181 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="AnimStar5" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 357.511, 89.0181 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="AnimStar8" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 277.421, 163.769 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="AnimStar6" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 874.094, 32.9548 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
+frame = 3
 playing = true
 
 [node name="AnimStar7" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 645.836, 142.412 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="Ground" type="Sprite" parent="Node2D"]
@@ -256,7 +267,7 @@ texture = ExtResource( 9 )
 position = Vector2( 134.831, 70.5403 )
 frames = SubResource( 13 )
 animation = "moon_phases"
-frame = 1
+frame = 2
 playing = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -295,7 +306,7 @@ align = 1
 [node name="Options" type="VBoxContainer" parent="VBoxContainer"]
 margin_top = 300.0
 margin_right = 1024.0
-margin_bottom = 484.0
+margin_bottom = 552.0
 size_flags_vertical = 2
 custom_constants/separation = 20
 alignment = 1
@@ -350,6 +361,22 @@ custom_colors/font_color_hover = Color( 0.603922, 0.219608, 0.219608, 1 )
 custom_colors/font_color_pressed = Color( 0.384314, 0.141176, 0.141176, 1 )
 text = "Credits"
 script = ExtResource( 5 )
+
+[node name="Quit" type="Button" parent="VBoxContainer/Options"]
+margin_top = 204.0
+margin_right = 1024.0
+margin_bottom = 252.0
+custom_styles/hover = SubResource( 29 )
+custom_styles/pressed = SubResource( 30 )
+custom_styles/focus = SubResource( 31 )
+custom_styles/disabled = SubResource( 32 )
+custom_styles/normal = SubResource( 33 )
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color_hover = Color( 0.603922, 0.219608, 0.219608, 1 )
+custom_colors/font_color_pressed = Color( 0.384314, 0.141176, 0.141176, 1 )
+text = "Quit"
+script = ExtResource( 12 )
 [connection signal="pressed" from="VBoxContainer/Options/Play" to="VBoxContainer/Options/Play" method="_on_Play_pressed"]
 [connection signal="pressed" from="VBoxContainer/Options/Instructions" to="VBoxContainer/Options/Instructions" method="_on_Instructions_pressed"]
 [connection signal="pressed" from="VBoxContainer/Options/Credits" to="VBoxContainer/Options/Credits" method="_on_Credits_pressed"]
+[connection signal="pressed" from="VBoxContainer/Options/Quit" to="VBoxContainer/Options/Quit" method="_on_Quit_pressed"]

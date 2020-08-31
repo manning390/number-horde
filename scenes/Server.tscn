@@ -180,7 +180,7 @@ texture = ExtResource( 9 )
 position = Vector2( 134.831, 70.5403 )
 frames = SubResource( 27 )
 animation = "moon_phases"
-frame = 4
+frame = 7
 playing = true
 
 [node name="Star" type="Sprite" parent="Sky_layer"]
