@@ -43,7 +43,7 @@ max_term = 5
 scale = Vector2( 1.5, 1.5 )
 frames = SubResource( 5 )
 animation = "walk"
-frame = 3
+frame = 1
 playing = true
 
 [node name="ZLayer" type="Node2D" parent="."]

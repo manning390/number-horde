@@ -186,63 +186,67 @@ frame = 1
 position = Vector2( 100, 100 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 18 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="AnimStar2" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 783.325, 75.6697 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 18 )
-frame = 1
 playing = true
 
 [node name="AnimStar3" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 784.66, 194.47 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 18 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="AnimStar4" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 892.782, 233.181 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 18 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="AnimStar5" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 357.511, 89.0181 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 18 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="AnimStar8" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 277.421, 163.769 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 18 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="AnimStar6" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 874.094, 32.9548 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 18 )
-frame = 1
 playing = true
 
 [node name="AnimStar7" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 645.836, 142.412 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 18 )
+frame = 3
 playing = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_top = -0.000833333
+anchor_bottom = -0.000833333
 margin_right = 1024.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 100
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Title" type="Label" parent="VBoxContainer"]
 margin_top = 83.0

@@ -3,6 +3,7 @@ extends Node
 var player_node = preload("res://scenes/Player.tscn")
 var zombie_node = preload("res://scenes/Zombie.tscn")
 var notify_node = preload("res://scenes/FallingText.tscn")
+var barricade_node = preload("res://scenes/Barricade.tscn")
 
 onready var score_label = $UI/Control/Score
 onready var countdown_label = $UI/Control/Countdown
@@ -10,6 +11,7 @@ onready var start_timer = $Start_timer
 
 var countdown_color = 0
 
+var TOTAL_BARRICADES = 4
 var TEST = 0
 const MOCK_PLAYERS = 2
 
@@ -65,6 +67,10 @@ func _ready():
 		set_process(false)
 	elif err == OK:
 		print("Server started")
+	
+	spawn_barricades()
+	
+	# TODO
 	
 	for i in MOCK_PLAYERS:
 		spawn_player(i, true)
@@ -134,6 +140,18 @@ func _on_zombie_hit(player_id, equation, answer, points, first):
 			"points": points,
 			"first": first
 		})
+
+func _on_barricade_created(barricade):
+	pass
+
+func _on_barricade_hit(barricade):
+	pass
+
+func spawn_barricades():
+	for i in TOTAL_BARRICADES:
+		var b = Global.instance_node(barricade_node, Global.get_barricade_spawn_pos(i), Global.node_creation_parent)
+		b.connect("barricade_created", self, "_on_barricade_created")
+		b.connect("barricade_hit", self, "_on_barricade_hit")
 
 func spawn_player(id, isMock = false):
 	# Create a new player
