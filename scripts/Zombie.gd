@@ -108,12 +108,12 @@ func shot():
 		overkill_timer.start()
 
 func calc_score():
-	var score = 100
+	var out = 100
 	if term1 > 5 && term1 < 9:
-		score += 50
+		out += 50
 	if term2 > 5 && term2 < 9:
-		score += 50
+		out += 50
 	if operator > 2 && (answer % 3 == 0 || answer % 8 == 0 || answer % 7 == 0 || answer % 6 == 0 || answer % 9 == 0):
-		score += 100
-	score *= operator+1
-	return score
+		out += 100
+	out *= operator+1
+	return out

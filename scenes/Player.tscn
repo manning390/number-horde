@@ -85,4 +85,7 @@ autostart = true
 [node name="Gun_position" type="Position2D" parent="."]
 position = Vector2( 13, -11 )
 scale = Vector2( 1.5, 1.5 )
+
+[node name="Text_position" type="Position2D" parent="."]
+position = Vector2( 0, -27 )
 [connection signal="timeout" from="Random_walk_timer" to="." method="_on_Random_walk_timer_timeout"]

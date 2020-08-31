@@ -4,7 +4,9 @@ onready var body = $Body
 onready var head = $Head
 onready var walk_timer = $Random_walk_timer
 onready var gun_pos = $Gun_position
+onready var text_pos = $Text_position
 
+var floating_text = preload("res://scenes/FloatingText.tscn")
 var bullet_node = preload("res://scenes/Bullet.tscn")
 
 var velocity = Vector2()
@@ -73,6 +75,9 @@ func fire(zombie):
 			zombie.connect("zombie_freed", bullet, "_on_zombie_freed")
 		else:
 			bullet.isMiss = true
+			var miss = Global.instance_node(floating_text, text_pos.global_position, Global.node_creation_parent)
+			miss.set_text("Miss")
+			miss.start()
 
 func _on_Random_walk_timer_timeout():
 	randomize()
