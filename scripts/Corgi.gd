@@ -93,4 +93,3 @@ func _input(event):
 			randomize()
 			if Global.node_creation_parent != null:
 				Global.instance_node(heart, $Heart_spawn.global_position, Global.node_creation_parent)
-			

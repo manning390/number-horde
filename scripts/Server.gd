@@ -9,22 +9,16 @@ var notify_node = preload("res://scenes/FallingText.tscn")
 
 onready var countdown_label = $UI/Control/Countdown
 onready var start_timer = $Start_timer
-onready var corgi = $Corgi
 
 var countdown_color = 0
 
 var TEST = 0
-const MOCK_PLAYERS = 20
+const MOCK_PLAYERS = 2
 
 var ip = "127.0.0.1"
 const PORT = 9080
 
 var _server = WebSocketServer.new()
-#var _upnp = UPNP.new()
-#var upnp_err = 1
-#var crypto = Crypto.new()
-# var key = crypto.generate_rsa(4096)
-# var cert = crypto.generate_self_signed_certificate(key, "CN=localhost,O=myorganisation,C=IT")
 
 # Maps pkt method strings to function calls
 # See _on_data for call
@@ -66,10 +60,6 @@ func _ready():
 	_server.connect("client_close_request", self, "_on_close_request")
 	_server.connect("data_received", self, "_on_data")
 	
-	# Having issues with WSS, will need to investigate
-	#_server.private_key = key
-	#_server.ssl_certificate = cert
-	
 	var err = _server.listen(PORT)
 	if err != OK:
 		print("Unable to start server")
@@ -81,7 +71,7 @@ func _ready():
 		spawn_player(i, true)
 	
 	# Display our IP
-#	$UI/Control/IP.text = "Server: %s:%d" % [ip, PORT]
+	#$UI/Control/IP.text = "Server: %s:%d" % [ip, PORT]
 
 	# Run first round of notifications immediately
 	_on_Notify_timer_timeout()	
@@ -121,12 +111,12 @@ static func sort_zombie_distance(a, b):
 		return true
 	return false
 
-func spawn_zombie(count, zombie_difficulty):
+func spawn_zombie(count, diff):
 	if Global.node_creation_parent == null || count <= 0:
 		return
 	for i in count:
 		var level_ceiling = 0
-		match zombie_difficulty:
+		match diff:
 			difficulty.EASY:
 				level_ceiling = 0
 			difficulty.BASIC:
@@ -153,7 +143,7 @@ func spawn_player(id, isMock = false):
 	var player_instance = null
 	if (Global.node_creation_parent != null):
 		player_instance = Global.instance_node(player_node, Global.get_player_spawn_pos(), Global.node_creation_parent)
-		player_instance.modulate = color
+		player_instance.set_color(color)
 	
 	players[id] = {
 		"id": id,
@@ -228,7 +218,6 @@ func _on_Notify_timer_timeout():
 		var notify_inst = Global.instance_node(notify_node, Vector2(20, 20), Global.node_creation_parent)
 		notify_inst.set_text(text)
 		notify_inst.start()
-
 
 func _on_Start_timer_timeout():
 	game_started = true

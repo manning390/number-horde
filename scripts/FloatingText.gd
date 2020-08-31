@@ -28,7 +28,7 @@ func start():
 		1.0, Tween.TRANS_LINEAR, Tween.EASE_OUT, 0.6
 	)
 	
-	tween.interpolate_callback(self, 1.0, "destroy")
+	tween.interpolate_callback(self, 1.0, "queue_free")
 	
 	tween.start()
 	

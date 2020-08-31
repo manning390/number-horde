@@ -6,25 +6,15 @@
 [ext_resource path="res://scripts/Instructions.gd" type="Script" id=4]
 [ext_resource path="res://scripts/Credits.gd" type="Script" id=5]
 
-[sub_resource type="StyleBoxEmpty" id=4]
-
-[sub_resource type="StyleBoxEmpty" id=13]
-
-[sub_resource type="StyleBoxEmpty" id=14]
-
-[sub_resource type="StyleBoxEmpty" id=15]
-
 [sub_resource type="StyleBoxEmpty" id=1]
 
-[sub_resource type="StyleBoxEmpty" id=5]
-
-[sub_resource type="StyleBoxEmpty" id=10]
-
-[sub_resource type="StyleBoxEmpty" id=11]
-
-[sub_resource type="StyleBoxEmpty" id=12]
-
 [sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=5]
 
 [sub_resource type="StyleBoxEmpty" id=6]
 
@@ -34,7 +24,17 @@
 
 [sub_resource type="StyleBoxEmpty" id=9]
 
-[sub_resource type="StyleBoxEmpty" id=3]
+[sub_resource type="StyleBoxEmpty" id=10]
+
+[sub_resource type="StyleBoxEmpty" id=11]
+
+[sub_resource type="StyleBoxEmpty" id=12]
+
+[sub_resource type="StyleBoxEmpty" id=13]
+
+[sub_resource type="StyleBoxEmpty" id=14]
+
+[sub_resource type="StyleBoxEmpty" id=15]
 
 [node name="MainMenu" type="Control"]
 anchor_left = 0.5
@@ -79,11 +79,11 @@ margin_right = 551.0
 margin_bottom = 48.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 13 )
-custom_styles/focus = SubResource( 14 )
-custom_styles/disabled = SubResource( 15 )
-custom_styles/normal = SubResource( 1 )
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 5 )
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color_hover = Color( 0.603922, 0.219608, 0.219608, 1 )
 custom_colors/font_color_pressed = Color( 0.384314, 0.141176, 0.141176, 1 )
@@ -96,11 +96,11 @@ margin_top = 68.0
 margin_right = 617.0
 margin_bottom = 116.0
 size_flags_horizontal = 4
-custom_styles/hover = SubResource( 5 )
-custom_styles/pressed = SubResource( 10 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 12 )
-custom_styles/normal = SubResource( 2 )
+custom_styles/hover = SubResource( 6 )
+custom_styles/pressed = SubResource( 7 )
+custom_styles/focus = SubResource( 8 )
+custom_styles/disabled = SubResource( 9 )
+custom_styles/normal = SubResource( 10 )
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color_hover = Color( 0.603922, 0.219608, 0.219608, 1 )
 custom_colors/font_color_pressed = Color( 0.384314, 0.141176, 0.141176, 1 )
@@ -113,11 +113,11 @@ margin_top = 136.0
 margin_right = 572.0
 margin_bottom = 184.0
 size_flags_horizontal = 4
-custom_styles/hover = SubResource( 6 )
-custom_styles/pressed = SubResource( 7 )
-custom_styles/focus = SubResource( 8 )
-custom_styles/disabled = SubResource( 9 )
-custom_styles/normal = SubResource( 3 )
+custom_styles/hover = SubResource( 11 )
+custom_styles/pressed = SubResource( 12 )
+custom_styles/focus = SubResource( 13 )
+custom_styles/disabled = SubResource( 14 )
+custom_styles/normal = SubResource( 15 )
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color_hover = Color( 0.603922, 0.219608, 0.219608, 1 )
 custom_colors/font_color_pressed = Color( 0.384314, 0.141176, 0.141176, 1 )
