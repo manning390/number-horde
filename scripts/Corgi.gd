@@ -1,6 +1,6 @@
 extends Sprite
 
-var heart = preload("res://scenes/heart.tscn")
+var heart = preload("res://scenes/Heart.tscn")
 
 onready var anim = $AnimationPlayer
 onready var walk_timer = $Walk_timer

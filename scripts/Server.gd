@@ -9,7 +9,6 @@ var notify_node = preload("res://scenes/FallingText.tscn")
 
 onready var countdown_label = $UI/Control/Countdown
 onready var start_timer = $Start_timer
-onready var corgi = $Corgi
 
 var countdown_color = 0
 
@@ -112,12 +111,12 @@ static func sort_zombie_distance(a, b):
 		return true
 	return false
 
-func spawn_zombie(count, zombie_difficulty):
+func spawn_zombie(count, diff):
 	if Global.node_creation_parent == null || count <= 0:
 		return
 	for i in count:
 		var level_ceiling = 0
-		match zombie_difficulty:
+		match diff:
 			difficulty.EASY:
 				level_ceiling = 0
 			difficulty.BASIC:
