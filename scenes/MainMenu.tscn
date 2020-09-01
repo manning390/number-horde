@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://scripts/Play.gd" type="Script" id=1]
 [ext_resource path="res://fonts/titlescreen_fonts/options_font/nightmare_outline.tres" type="DynamicFont" id=2]
@@ -10,21 +10,16 @@
 [ext_resource path="res://sprites/star/star1_sheet.png" type="Texture" id=8]
 [ext_resource path="res://sprites/ground.png" type="Texture" id=9]
 [ext_resource path="res://sprites/moon/moon_spritesheet.png" type="Texture" id=10]
-[ext_resource path="res://fonts/titlescreen_fonts/paragraph_font/nightmare_outline.tres" type="DynamicFont" id=11]
-[ext_resource path="res://scripts/Quit.gd" type="Script" id=12]
 
 [sub_resource type="AtlasTexture" id=1]
-flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 0, 0, 2, 2 )
 
 [sub_resource type="AtlasTexture" id=2]
-flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 2, 0, 2, 2 )
 
 [sub_resource type="AtlasTexture" id=3]
-flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 4, 0, 2, 2 )
 
@@ -39,30 +34,37 @@ animations = [ {
 } ]
 
 [sub_resource type="AtlasTexture" id=6]
+flags = 4
 atlas = ExtResource( 10 )
 region = Rect2( 52, 0, 52, 52 )
 
 [sub_resource type="AtlasTexture" id=7]
+flags = 4
 atlas = ExtResource( 10 )
 region = Rect2( 104, 0, 52, 52 )
 
 [sub_resource type="AtlasTexture" id=8]
+flags = 4
 atlas = ExtResource( 10 )
 region = Rect2( 156, 0, 52, 52 )
 
 [sub_resource type="AtlasTexture" id=9]
+flags = 4
 atlas = ExtResource( 10 )
 region = Rect2( 208, 0, 52, 52 )
 
 [sub_resource type="AtlasTexture" id=10]
+flags = 4
 atlas = ExtResource( 10 )
 region = Rect2( 260, 0, 52, 52 )
 
 [sub_resource type="AtlasTexture" id=11]
+flags = 4
 atlas = ExtResource( 10 )
 region = Rect2( 312, 0, 52, 52 )
 
 [sub_resource type="AtlasTexture" id=12]
+flags = 4
 atlas = ExtResource( 10 )
 region = Rect2( 364, 0, 52, 52 )
 
@@ -83,16 +85,6 @@ animations = [ {
 [sub_resource type="StyleBoxEmpty" id=17]
 
 [sub_resource type="StyleBoxEmpty" id=18]
-
-[sub_resource type="StyleBoxEmpty" id=29]
-
-[sub_resource type="StyleBoxEmpty" id=30]
-
-[sub_resource type="StyleBoxEmpty" id=31]
-
-[sub_resource type="StyleBoxEmpty" id=32]
-
-[sub_resource type="StyleBoxEmpty" id=33]
 
 [sub_resource type="StyleBoxEmpty" id=19]
 
@@ -208,53 +200,55 @@ frame = 1
 position = Vector2( 100, 100 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="AnimStar2" type="AnimatedSprite" parent="Star_layer"]
 position = Vector2( 783.325, 75.6697 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="AnimStar3" type="AnimatedSprite" parent="Star_layer"]
 position = Vector2( 784.66, 194.47 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="AnimStar4" type="AnimatedSprite" parent="Star_layer"]
 position = Vector2( 892.782, 233.181 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
+frame = 3
 playing = true
 
 [node name="AnimStar5" type="AnimatedSprite" parent="Star_layer"]
 position = Vector2( 357.511, 89.0181 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
+frame = 3
 playing = true
 
 [node name="AnimStar8" type="AnimatedSprite" parent="Star_layer"]
 position = Vector2( 277.421, 163.769 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
+frame = 3
 playing = true
 
 [node name="AnimStar6" type="AnimatedSprite" parent="Star_layer"]
 position = Vector2( 874.094, 32.9548 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="AnimStar7" type="AnimatedSprite" parent="Star_layer"]
 position = Vector2( 645.836, 142.412 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 1
 playing = true
 
 [node name="Ground" type="Sprite" parent="Star_layer"]
@@ -266,46 +260,32 @@ texture = ExtResource( 9 )
 position = Vector2( 134.831, 70.5403 )
 frames = SubResource( 13 )
 animation = "moon_phases"
-frame = 4
+frame = 5
 playing = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_right = 1024.0
 margin_bottom = 600.0
-custom_constants/separation = 0
+custom_constants/separation = 100
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Title Info" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 90.0
+[node name="Title" type="Label" parent="VBoxContainer"]
+margin_top = 83.0
 margin_right = 1024.0
-margin_bottom = 209.0
+margin_bottom = 166.0
 size_flags_vertical = 6
-
-[node name="Title" type="Label" parent="VBoxContainer/Title Info"]
-margin_right = 1024.0
-margin_bottom = 83.0
 custom_fonts/font = ExtResource( 3 )
-custom_colors/font_color = Color( 0.603922, 0.219608, 0.219608, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Number Horde"
 align = 1
 valign = 1
 
-[node name="StudioName" type="Label" parent="VBoxContainer/Title Info"]
-margin_top = 87.0
-margin_right = 1024.0
-margin_bottom = 119.0
-size_flags_vertical = 0
-custom_fonts/font = ExtResource( 11 )
-custom_colors/font_color = Color( 0.619608, 0.619608, 0.619608, 1 )
-text = "A Tri-Wight Studios Game"
-align = 1
-
 [node name="Options" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 300.0
+margin_top = 350.0
 margin_right = 1024.0
-margin_bottom = 552.0
+margin_bottom = 534.0
 size_flags_vertical = 2
 custom_constants/separation = 20
 alignment = 1
@@ -333,11 +313,11 @@ margin_top = 68.0
 margin_right = 617.0
 margin_bottom = 116.0
 size_flags_horizontal = 4
-custom_styles/hover = SubResource( 29 )
-custom_styles/pressed = SubResource( 30 )
-custom_styles/focus = SubResource( 31 )
-custom_styles/disabled = SubResource( 32 )
-custom_styles/normal = SubResource( 33 )
+custom_styles/hover = SubResource( 19 )
+custom_styles/pressed = SubResource( 20 )
+custom_styles/focus = SubResource( 21 )
+custom_styles/disabled = SubResource( 22 )
+custom_styles/normal = SubResource( 23 )
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color_hover = Color( 0.603922, 0.219608, 0.219608, 1 )
 custom_colors/font_color_pressed = Color( 0.384314, 0.141176, 0.141176, 1 )
@@ -350,21 +330,6 @@ margin_top = 136.0
 margin_right = 572.0
 margin_bottom = 184.0
 size_flags_horizontal = 4
-custom_styles/hover = SubResource( 19 )
-custom_styles/pressed = SubResource( 20 )
-custom_styles/focus = SubResource( 21 )
-custom_styles/disabled = SubResource( 22 )
-custom_styles/normal = SubResource( 23 )
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color_hover = Color( 0.603922, 0.219608, 0.219608, 1 )
-custom_colors/font_color_pressed = Color( 0.384314, 0.141176, 0.141176, 1 )
-text = "Credits"
-script = ExtResource( 5 )
-
-[node name="Quit" type="Button" parent="VBoxContainer/Options"]
-margin_top = 204.0
-margin_right = 1024.0
-margin_bottom = 252.0
 custom_styles/hover = SubResource( 24 )
 custom_styles/pressed = SubResource( 25 )
 custom_styles/focus = SubResource( 26 )
@@ -373,9 +338,8 @@ custom_styles/normal = SubResource( 28 )
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color_hover = Color( 0.603922, 0.219608, 0.219608, 1 )
 custom_colors/font_color_pressed = Color( 0.384314, 0.141176, 0.141176, 1 )
-text = "Quit"
-script = ExtResource( 12 )
+text = "Credits"
+script = ExtResource( 5 )
 [connection signal="pressed" from="VBoxContainer/Options/Play" to="VBoxContainer/Options/Play" method="_on_Play_pressed"]
 [connection signal="pressed" from="VBoxContainer/Options/Instructions" to="VBoxContainer/Options/Instructions" method="_on_Instructions_pressed"]
 [connection signal="pressed" from="VBoxContainer/Options/Credits" to="VBoxContainer/Options/Credits" method="_on_Credits_pressed"]
-[connection signal="pressed" from="VBoxContainer/Options/Quit" to="VBoxContainer/Options/Quit" method="_on_Quit_pressed"]

@@ -4,7 +4,7 @@
             <h2 class="title text-red-400 strong mt-2 text-center text-6xl">
                 Number Horde
             </h2>
-            <div class="text-center" v-if="clientState === ClientState.disconnected">
+            <div class="text-center" v-if="clientState === ClientState.disconnected && gameState !== GameState.gameOver">
                 Welcome to Number Horde!<br />
                 <p class="text my-2">
                     To join a server, punch in the IP and Port below!
@@ -35,15 +35,20 @@
                             <button class="px-6 rounded-r-lg text-white font-bold bg-red-500 hover:bg-red-800 focus:bg-red-800" :disabled="gameState === GameState.miss" v-on:click="fire">Fire!</button>
                         </div>
                     </label>
-                    <div class="mx-auto p-1 m-4 rounded w-3/4 bg-gray-900">
-                        You're connected as <span class="text-white px-1 rounded-sm font-bold" v-bind:style="charStyle">{{ name }}</span>!
-                        <hr class="bg-gray-700 m-2">
-                        <h3 class="text-md" v-if="!history.length">Get brain blast'n!</h3>
-                        <h3 class="text-md" v-if="!!history.length">Past shots!</h3>
-                        <div v-for="data in history" v-bind:key="data.id">
-                            <span>{{ data.equation }} = {{ data.answer }} => <span v-bind:class="{'text-red-500': data.first, 'font-bold': data.first}">{{ data.points}}</span></span>
-                        </div>
-                    </div>
+                </div>
+            </div>
+            <div class="mx-auto p-1 m-4 rounded w-3/4 bg-gray-900 text-center" v-if="gameState === GameState.shooting || gameState === GameState.miss || gameState === GameState.gameOver">
+                <div v-if="gameState !== GameState.gameOver">
+                    You're connected as <span class="text-white px-1 rounded-sm font-bold" v-bind:style="charStyle">{{ name }}</span>!
+                </div>
+                <div v-if="gameState === GameState.gameOver">
+                    <span class="title text-red-400 text-5xl">Game Over</span>
+                </div>
+                <hr class="bg-gray-700 m-2">
+                <h3 class="text-md" v-if="!history.length">Get brain blast'n!</h3>
+                <h3 class="text-md" v-if="!!history.length">Past shots!</h3>
+                <div v-for="data in history" v-bind:key="data.id">
+                    <span>{{ data.equation }} = {{ data.answer }} => <span v-bind:class="{'text-red-500': data.first, 'font-bold': data.first}">{{ data.points}}</span></span>
                 </div>
             </div>
         </div>
@@ -79,7 +84,7 @@ export default {
                 "hit": (data) => this.onHit(data),
                 "miss": (data) => this.onMiss(data),
                 "connected": (data) => this.onConnect(data),
-                "gameOver": (data) => this.onGameOver(data),
+                "gameover": (data) => this.onGameOver(data),
             },
             name: "Someone",
             history: [],
