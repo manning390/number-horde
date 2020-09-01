@@ -45,18 +45,21 @@ var max_zombie_spawn = 5
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-#	var crypto = Crypto.new()
-#	var key = crypto.generate_rsa(4096)
-#	var cert = crypto.generate_self_signed_certificate(key)
-#	_server.private_key = key
-#	_server.ssl_certificate = cert
+	# Cert stuff
+	_server.bind_ip = "*"
+	_server.private_key = CryptoKey.new();
+	_server.private_key.load("res://keys/privkey.key")
+	_server.ssl_certificate = X509Certificate.new()
+	_server.ssl_certificate.load("res://keys/cert.crt")
+	_server.ca_chain = X509Certificate.new()
+	_server.ca_chain.load("res://keys/chain.crt")
 
 	Global.node_creation_parent = self
 	_server.connect("client_connected", self, "_on_connect")
 	_server.connect("client_disconnected", self, "_on_disconnect")
 	_server.connect("client_close_request", self, "_on_close_request")
 	_server.connect("data_received", self, "_on_data")
-	
+
 	var err = _server.listen(PORT)
 	if err != OK:
 		print("Unable to start server")
@@ -65,7 +68,7 @@ func _ready():
 		print("Server started")
 
 	# Run first round of notifications immediately
-	_on_Notify_timer_timeout()	
+	_on_Notify_timer_timeout()
 
 func _exit_tree():
 	Global.node_creation_parent = null
@@ -77,7 +80,7 @@ func _process(delta):
 		spawn_zombie(max_zombie_spawn - zombies.size(), zombie_difficulty)
 	elif !start_timer.is_stopped():
 		update_countdown()
-		
+
 	_server.poll()
 
 func get_targetable_zombies():
@@ -134,16 +137,16 @@ func spawn_player(id, isMock = false):
 		player_instance = Global.instance_node(player_node, Global.get_player_spawn_pos(), Global.node_creation_parent)
 		player_instance.id = id
 		player_instance.set_color(color)
-	
+
 	players[id] = {
 		"id": id,
 		"name": pname,
 		"color": color,
 		"instance": player_instance
 	}
-	
+
 	notify("Player %s connected" % [pname])
-	
+
 	# Tell client the info
 	if !isMock:
 		_sendPkt(id, "connected", {
