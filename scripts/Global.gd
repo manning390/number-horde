@@ -1,7 +1,7 @@
 extends Node
 
 onready var screen_size = get_viewport().size
-var start_time = 120
+var start_time = 5
 var node_creation_parent = null
 var score = 0
 

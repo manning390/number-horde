@@ -248,4 +248,5 @@ func _on_Barrier_death():
 func _on_Gameover_timer_timeout():
 	game_over = true
 	for p in players:
-		_sendPkt(p.id, "gameover", {})
+		_sendPkt(players[p].id, "gameover", {})
+	get_tree().change_scene("res://scenes/GameOver.tscn")
