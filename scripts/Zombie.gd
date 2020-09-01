@@ -6,6 +6,7 @@ onready var overkill_timer = $Overkill_timer
 onready var equation_label = $ZLayer/Equation
 onready var surge_timer = $Surge_delay_timer
 onready var target = $Target
+onready var hand_pos = $Hand_position
 
 export(int) var base_speed = 20
 export(float) var surge_multiplier = 3.5
@@ -30,6 +31,9 @@ var surge_flag = true
 var original_surge_delay # Saves the original timer value so our first surge is random
 var first_surge = true
 
+var hitting_barrier = false
+var barrier
+
 signal zombie_freed(zombie)
 signal zombie_hit(player, eq, ans, score, first)
 
@@ -43,7 +47,7 @@ func _exit_tree():
 	emit_signal("zombie_freed", self)
 
 func _process(delta):
-	if !dead:
+	if !dead && !hitting_barrier:
 		speed = max(base_speed, speed - ((base_speed * speed_decay) * delta))
 
 		if speed == base_speed && surge_flag:
@@ -56,6 +60,8 @@ func _process(delta):
 		# Technically this shouldn't happen because of the barricade but eh?
 		if global_position.x < -30:
 			queue_free()
+	elif hitting_barrier && surge_timer.is_stopped():
+		surge_timer.start()
 
 func generate_equation(equation_type):
 	randomize()
@@ -82,7 +88,7 @@ func calc_answer(t1, t2, o):
 		2:
 			return t1 * t2
 		3:
-			return float(t1) / float(t2)
+			return stepify(float(t1) / float(t2),  0.01)
 		_:
 			return 0
 
@@ -91,6 +97,8 @@ func _on_Surge_timer_timeout():
 	if first_surge:
 		surge_timer.wait_time = original_surge_delay
 		first_surge = false
+	if hitting_barrier:
+		hit_barrier()
 
 func _on_Overkill_timer_timeout():
 	queue_free()
@@ -119,3 +127,20 @@ func calc_score():
 		out += 150
 	out *= operator+1
 	return out
+
+func _on_Hand_hitbox_area_entered(area):
+	if area.is_in_group("barrier"):
+		hitting_barrier = true
+		barrier = area.get_parent()
+
+func _on_Hand_hitbox_area_exited(area):
+	if area.is_in_group("barrier"):
+		hitting_barrier = false
+		barrier = null
+
+func hit_barrier():
+	barrier.health -= answer
+	var dmg = Global.instance_node(floating_text, hand_pos.global_position, Global.node_creation_parent)
+	dmg.set_text(answer)
+	dmg.set_color(Color.red)
+	dmg.start()

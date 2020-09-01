@@ -1,7 +1,5 @@
 extends Node
 
-
-
 onready var screen_size = get_viewport().size
 var start_time = 5
 var node_creation_parent = null
@@ -162,6 +160,7 @@ const FLAVOR = [
 	"Don't let the corgi escape! It's too short for this.",
 	"Have we reached a consensous on the corgi's name?",
 	"Y'all are nerds.",
+	"The corgi is doing his best."
 ]
 
 const SKIN_TONES = [
@@ -208,8 +207,6 @@ const SKY_COLORS = [
 	Color("493465"), # Eggplant
 	Color("1A1526"), # Purple
 ]
-
-
 
 func instance_node(node, location, parent):
 	var node_instance = node.instance()

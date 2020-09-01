@@ -7,6 +7,8 @@ var notify_node = preload("res://scenes/FallingText.tscn")
 onready var score_label = $UI/Control/Score
 onready var countdown_label = $UI/Control/Countdown
 onready var start_timer = $Start_timer
+onready var difficulty_timer = $Difficulty_timer
+onready var gameover_timer = $Gameover_timer
 
 var countdown_color = 0
 
@@ -33,26 +35,13 @@ const MAX_NOTIFY = 6
 var notify_queue = []
 
 var game_started = false
+var game_over = false
 var zombie_difficulty = Global.difficulty.EASY
 var timer_reset_count = 0
 var max_zombie_spawn = 5
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if !game_started:
-		start_timer.wait_time = Global.start_time
-		start_timer.start()
-#	upnp_err = _upnp.discover()
-##		print("Port mapping failed, will need to port forward")
-#	if upnp_err == OK:
-#		print("upnp OK")
-#
-#		print(_upnp.get_gateway().query_external_address())
-#		_upnp.add_port_mapping(PORT)
-#		var _ip = _upnp.query_external_address()
-#		print("ext ip ", _ip)
-#		if _ip != "":
-#			ip = _ip
-	
 	Global.node_creation_parent = self
 	_server.connect("client_connected", self, "_on_connect")
 	_server.connect("client_disconnected", self, "_on_disconnect")
@@ -65,12 +54,6 @@ func _ready():
 		set_process(false)
 	elif err == OK:
 		print("Server started")
-	
-#	for i in MOCK_PLAYERS:
-#		spawn_player(i, true)
-	
-	# Display our IP
-	#$UI/Control/IP.text = "Server: %s:%d" % [ip, PORT]
 
 	# Run first round of notifications immediately
 	_on_Notify_timer_timeout()	
@@ -78,22 +61,13 @@ func _ready():
 func _exit_tree():
 	Global.node_creation_parent = null
 	_server.stop()
-#	if upnp_err == 0:
-#		_upnp.delete_port_mapping(PORT)
 
 func _process(delta):
 	# Spawn a zombie for every player there is, negative numbers ignored
-
 	if game_started:
 		spawn_zombie(max_zombie_spawn - zombies.size(), zombie_difficulty)
-	else:
+	elif !start_timer.is_stopped():
 		update_countdown()
-		
-#	TEST += delta
-#	if TEST >= 0.2:
-#		TEST = 0
-#		randomize()
-#		shoot(randi() % MOCK_PLAYERS, {"shot": randi() % 10})
 		
 	_server.poll()
 
@@ -161,7 +135,7 @@ func spawn_player(id, isMock = false):
 			"id": id,
 			"name": pname,
 			"color": color.to_html().right(2), # Remove alpha channel
-			"wait": 0
+			"wait": start_timer.time_left * 1000 if start_timer != null else 0
 		})
 
 func _on_close_request(id, code, reason):
@@ -185,12 +159,15 @@ func _sendPkt(id, method, data):
 
 func _on_connect(id, _proto):
 	print("Client %d connected" % [id])
+	if players.size() == 0:
+		start_timer.wait_time = Global.start_time
+		start_timer.start()
 	spawn_player(id)
 
 func _on_disconnect(id, was_clean = false):
 	print("Client %d disconnected, clean: %s" % [id, str(was_clean)])
 	# Notify game player has left
-	notify("Player %d disconnected" % [id])
+	notify("Player %s disconnected" % [players[id].name])
 	# Remove Instance
 	players[id].instance.queue_free()
 	# Remove player
@@ -222,6 +199,7 @@ func _on_Notify_timer_timeout():
 
 func _on_Start_timer_timeout():
 	game_started = true
+	difficulty_timer.start()
 	countdown_color = 0
 	start_timer.queue_free()
 	countdown_label.queue_free()
@@ -246,7 +224,14 @@ func _on_Difficulty_timer_timeout():
 			if timer_reset_count < d:
 				zombie_difficulty = d
 				break
-#		print("difficulty now: ", zombie_difficulty)
 
-	var exponential = 1 + (PI/20)
-	max_zombie_spawn = pow(timer_reset_count/2, exponential) + players.size()
+	var m = 2*PI
+	max_zombie_spawn = (1/m)*timer_reset_count + players.size()*(1/m) + 5
+
+func _on_Barrier_death():
+	gameover_timer.start()
+
+func _on_Gameover_timer_timeout():
+	game_over = true
+	for p in players:
+		_sendPkt(p.id, "gameover", {})
