@@ -101,7 +101,7 @@ export default {
             if (this.ipData === "") {
                 this.ipData = "127.0.0.1:9080";
             }
-            this.connection = new WebSocket("ws://" + this.ipData);
+            this.connection = new WebSocket("wss://" + this.ipData);
 
             this.connection.onmessage = async (e) => {
                 const encoded = await new Response(e.data).text();
