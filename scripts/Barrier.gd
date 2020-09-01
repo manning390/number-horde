@@ -3,7 +3,7 @@ extends Node2D
 var floating_text = preload("res://scenes/FloatingText.tscn")
 onready var health_label = $Control/Health_label
 
-var health = 100
+var health = Global.barrier_start_hp
 
 signal death()
 

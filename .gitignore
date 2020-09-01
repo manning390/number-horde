@@ -2,3 +2,4 @@ temp/
 .import/
 .mono/
 *.import
+dist/
