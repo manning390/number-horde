@@ -10,6 +10,8 @@ onready var countdown_label = $UI/Control/Countdown
 onready var start_timer = $Start_timer
 onready var difficulty_timer = $Difficulty_timer
 onready var gameover_timer = $Gameover_timer
+onready var sky_node = $Sky_layer/Sky
+onready var stars_node = $Sky_layer/Stars
 
 var countdown_color = 0
 
@@ -17,8 +19,7 @@ var TOTAL_BARRICADES = 4
 var TEST = 0
 const MOCK_PLAYERS = 2
 
-var ip = "127.0.0.1"
-const PORT = 9080
+const PORT = 443
 
 var _server = WebSocketServer.new()
 
@@ -44,6 +45,12 @@ var max_zombie_spawn = 5
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+#	var crypto = Crypto.new()
+#	var key = crypto.generate_rsa(4096)
+#	var cert = crypto.generate_self_signed_certificate(key)
+#	_server.private_key = key
+#	_server.ssl_certificate = cert
+
 	Global.node_creation_parent = self
 	_server.connect("client_connected", self, "_on_connect")
 	_server.connect("client_disconnected", self, "_on_disconnect")
@@ -111,12 +118,6 @@ func _on_zombie_hit(player_id, equation, answer, points, first):
 			"first": first
 		})
 
-func _on_barricade_created(barricade):
-	pass
-
-func _on_barricade_hit(barricade):
-	pass
-
 func spawn_barricades():
 	for i in TOTAL_BARRICADES:
 		var b = Global.instance_node(barricade_node, Global.get_barricade_spawn_pos(i), Global.node_creation_parent)
@@ -176,6 +177,8 @@ func _on_connect(id, _proto):
 	if players.size() == 0:
 		start_timer.wait_time = Global.start_time
 		start_timer.start()
+		sky_node.start()
+		stars_node.start()
 	spawn_player(id)
 
 func _on_disconnect(id, was_clean = false):

@@ -14,4 +14,6 @@ func _ready():
 			colors[i],
 			colors[i+1],
 			delay, tween.TRANS_LINEAR, tween.EASE_IN_OUT, delay * i)
+
+func start():
 	tween.start()

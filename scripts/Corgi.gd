@@ -28,7 +28,7 @@ func _process(delta):
 		if delta_to_target == Vector2():
 			walking = false
 			randomize()
-			walk_timer.wait_time = 1#randi() % (max_wait_to_walk - min_wait_to_walk) + min_wait_to_walk
+			walk_timer.wait_time = randi() % (max_wait_to_walk - min_wait_to_walk) + min_wait_to_walk
 			walk_timer.start()
 			target_pos = null
 			return

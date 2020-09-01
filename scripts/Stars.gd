@@ -10,4 +10,6 @@ func _ready():
 		Color("00ffffff"),
 		Color("ffffffff"),
 		delay * 3, tween.TRANS_LINEAR, tween.EASE_IN_OUT, delay * 3)
+		
+func start():
 	tween.start()

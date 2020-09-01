@@ -115,7 +115,7 @@ export default {
             }
             this.connection.onopen = (e) => {
                 console.log(e);
-                console.log("Successfully connected to the server!");
+                // console.log("Successfully connected to the server!");
                 this.clientState = ClientState.connected;
             }
             this.connection.onerror = (e) => {
@@ -138,7 +138,7 @@ export default {
                 "method": method,
                 "data": data
             };
-            console.log("Sent", pkt);
+            // console.log("Sent", pkt);
             this.connection.send(JSON.stringify(pkt));
         },
         onConnect({ name, color, wait }) {

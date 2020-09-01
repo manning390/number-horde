@@ -200,55 +200,53 @@ frame = 1
 position = Vector2( 100, 100 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 2
+frame = 3
 playing = true
 
 [node name="AnimStar2" type="AnimatedSprite" parent="Star_layer"]
 position = Vector2( 783.325, 75.6697 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="AnimStar3" type="AnimatedSprite" parent="Star_layer"]
 position = Vector2( 784.66, 194.47 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 2
+frame = 3
 playing = true
 
 [node name="AnimStar4" type="AnimatedSprite" parent="Star_layer"]
 position = Vector2( 892.782, 233.181 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 3
 playing = true
 
 [node name="AnimStar5" type="AnimatedSprite" parent="Star_layer"]
 position = Vector2( 357.511, 89.0181 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 3
 playing = true
 
 [node name="AnimStar8" type="AnimatedSprite" parent="Star_layer"]
 position = Vector2( 277.421, 163.769 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 3
 playing = true
 
 [node name="AnimStar6" type="AnimatedSprite" parent="Star_layer"]
 position = Vector2( 874.094, 32.9548 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="AnimStar7" type="AnimatedSprite" parent="Star_layer"]
 position = Vector2( 645.836, 142.412 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
+frame = 1
 playing = true
 
 [node name="Ground" type="Sprite" parent="Star_layer"]
@@ -260,7 +258,7 @@ texture = ExtResource( 9 )
 position = Vector2( 134.831, 70.5403 )
 frames = SubResource( 13 )
 animation = "moon_phases"
-frame = 5
+frame = 6
 playing = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
