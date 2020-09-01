@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://scripts/Server.gd" type="Script" id=1]
 [ext_resource path="res://fonts/buried-outline.tres" type="DynamicFont" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://sprites/pixel.png" type="Texture" id=8]
 [ext_resource path="res://sprites/ground.png" type="Texture" id=9]
 [ext_resource path="res://sprites/moon/moon_spritesheet.png" type="Texture" id=10]
+[ext_resource path="res://scripts/Stars.gd" type="Script" id=11]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -171,129 +172,132 @@ texture = ExtResource( 9 )
 position = Vector2( 134.831, 70.5403 )
 frames = SubResource( 8 )
 animation = "moon_phases"
-frame = 1
+frame = 7
 playing = true
 
-[node name="Star" type="Sprite" parent="Sky_layer"]
+[node name="Stars" type="Node2D" parent="Sky_layer"]
+script = ExtResource( 11 )
+
+[node name="Star" type="Sprite" parent="Sky_layer/Stars"]
 position = Vector2( 209.57, 72.0814 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 hframes = 2
 
-[node name="Star2" type="Sprite" parent="Sky_layer"]
+[node name="Star2" type="Sprite" parent="Sky_layer/Stars"]
 position = Vector2( 383.099, 228.258 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 hframes = 2
 
-[node name="Star9" type="Sprite" parent="Sky_layer"]
+[node name="Star9" type="Sprite" parent="Sky_layer/Stars"]
 position = Vector2( 827.601, 142.828 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 hframes = 2
 frame = 1
 
-[node name="Star10" type="Sprite" parent="Sky_layer"]
+[node name="Star10" type="Sprite" parent="Sky_layer/Stars"]
 position = Vector2( 299.004, 10.6787 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 hframes = 2
 frame = 1
 
-[node name="Star11" type="Sprite" parent="Sky_layer"]
+[node name="Star11" type="Sprite" parent="Sky_layer/Stars"]
 position = Vector2( 182.873, 92.104 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 hframes = 2
 frame = 1
 
-[node name="Star3" type="Sprite" parent="Sky_layer"]
+[node name="Star3" type="Sprite" parent="Sky_layer/Stars"]
 position = Vector2( 672.759, 48.0543 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 hframes = 2
 
-[node name="Star4" type="Sprite" parent="Sky_layer"]
+[node name="Star4" type="Sprite" parent="Sky_layer/Stars"]
 position = Vector2( 925.044, 128.145 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 hframes = 2
 
-[node name="Star5" type="Sprite" parent="Sky_layer"]
+[node name="Star5" type="Sprite" parent="Sky_layer/Stars"]
 position = Vector2( 56.0632, 225.588 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 hframes = 2
 
-[node name="Star6" type="Sprite" parent="Sky_layer"]
+[node name="Star6" type="Sprite" parent="Sky_layer/Stars"]
 position = Vector2( 166.855, 180.203 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 hframes = 2
 frame = 1
 
-[node name="Star7" type="Sprite" parent="Sky_layer"]
+[node name="Star7" type="Sprite" parent="Sky_layer/Stars"]
 position = Vector2( 656.741, 222.918 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 hframes = 2
 frame = 1
 
-[node name="Star8" type="Sprite" parent="Sky_layer"]
+[node name="Star8" type="Sprite" parent="Sky_layer/Stars"]
 position = Vector2( 604.682, 88.0995 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 hframes = 2
 frame = 1
 
-[node name="AnimStar1" type="AnimatedSprite" parent="Sky_layer"]
+[node name="AnimStar1" type="AnimatedSprite" parent="Sky_layer/Stars"]
 position = Vector2( 100, 100 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 13 )
 frame = 1
 playing = true
 
-[node name="AnimStar2" type="AnimatedSprite" parent="Sky_layer"]
+[node name="AnimStar2" type="AnimatedSprite" parent="Sky_layer/Stars"]
 position = Vector2( 783.325, 75.6697 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 13 )
 playing = true
 
-[node name="AnimStar3" type="AnimatedSprite" parent="Sky_layer"]
+[node name="AnimStar3" type="AnimatedSprite" parent="Sky_layer/Stars"]
 position = Vector2( 784.66, 194.47 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 13 )
 frame = 1
 playing = true
 
-[node name="AnimStar4" type="AnimatedSprite" parent="Sky_layer"]
+[node name="AnimStar4" type="AnimatedSprite" parent="Sky_layer/Stars"]
 position = Vector2( 892.782, 233.181 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 13 )
 frame = 2
 playing = true
 
-[node name="AnimStar5" type="AnimatedSprite" parent="Sky_layer"]
+[node name="AnimStar5" type="AnimatedSprite" parent="Sky_layer/Stars"]
 position = Vector2( 357.511, 89.0181 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 13 )
 frame = 2
 playing = true
 
-[node name="AnimStar8" type="AnimatedSprite" parent="Sky_layer"]
+[node name="AnimStar8" type="AnimatedSprite" parent="Sky_layer/Stars"]
 position = Vector2( 277.421, 163.769 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 13 )
 frame = 2
 playing = true
 
-[node name="AnimStar6" type="AnimatedSprite" parent="Sky_layer"]
+[node name="AnimStar6" type="AnimatedSprite" parent="Sky_layer/Stars"]
 position = Vector2( 874.094, 32.9548 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 13 )
 playing = true
 
-[node name="AnimStar7" type="AnimatedSprite" parent="Sky_layer"]
+[node name="AnimStar7" type="AnimatedSprite" parent="Sky_layer/Stars"]
 position = Vector2( 645.836, 142.412 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 13 )

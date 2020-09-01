@@ -226,6 +226,9 @@ func rand_name():
 	randomize()
 	return NAMES[randi() % NAMES.size()]
 
+func get_barricade_spawn_pos(count):
+	return Vector2(250, (screen_size.y - 20) - count * 80)
+
 func get_player_spawn_pos():
 	randomize()
 	return Vector2(rand_range(20, 250), rand_range((screen_size.y / 2) - 20, screen_size.y - 20))

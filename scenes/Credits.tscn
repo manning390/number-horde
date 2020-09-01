@@ -10,76 +10,76 @@
 [ext_resource path="res://sprites/star/star1_sheet.png" type="Texture" id=8]
 [ext_resource path="res://sprites/ground.png" type="Texture" id=9]
 
-[sub_resource type="AtlasTexture" id=21]
+[sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 6 )
 region = Rect2( 52, 0, 52, 52 )
 
-[sub_resource type="AtlasTexture" id=22]
+[sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 6 )
 region = Rect2( 104, 0, 52, 52 )
 
-[sub_resource type="AtlasTexture" id=23]
+[sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 6 )
 region = Rect2( 156, 0, 52, 52 )
 
-[sub_resource type="AtlasTexture" id=24]
+[sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 6 )
 region = Rect2( 208, 0, 52, 52 )
 
-[sub_resource type="AtlasTexture" id=25]
+[sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 6 )
 region = Rect2( 260, 0, 52, 52 )
 
-[sub_resource type="AtlasTexture" id=26]
+[sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 6 )
 region = Rect2( 312, 0, 52, 52 )
 
-[sub_resource type="AtlasTexture" id=27]
+[sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 6 )
 region = Rect2( 364, 0, 52, 52 )
 
-[sub_resource type="SpriteFrames" id=28]
+[sub_resource type="SpriteFrames" id=8]
 animations = [ {
-"frames": [ null, SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ) ],
+"frames": [ null, SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
 "loop": true,
 "name": "moon_phases",
 "speed": 0.1
 } ]
 
-[sub_resource type="AtlasTexture" id=16]
+[sub_resource type="AtlasTexture" id=9]
 flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 0, 0, 2, 2 )
 
-[sub_resource type="AtlasTexture" id=17]
+[sub_resource type="AtlasTexture" id=10]
 flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 2, 0, 2, 2 )
 
-[sub_resource type="AtlasTexture" id=18]
+[sub_resource type="AtlasTexture" id=11]
 flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 4, 0, 2, 2 )
 
-[sub_resource type="AtlasTexture" id=19]
+[sub_resource type="AtlasTexture" id=12]
 
-[sub_resource type="SpriteFrames" id=20]
+[sub_resource type="SpriteFrames" id=13]
 animations = [ {
-"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
+"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
 } ]
 
-[sub_resource type="StyleBoxEmpty" id=1]
+[sub_resource type="StyleBoxEmpty" id=14]
 
-[sub_resource type="StyleBoxEmpty" id=2]
+[sub_resource type="StyleBoxEmpty" id=15]
 
-[sub_resource type="StyleBoxEmpty" id=3]
+[sub_resource type="StyleBoxEmpty" id=16]
 
-[sub_resource type="StyleBoxEmpty" id=4]
+[sub_resource type="StyleBoxEmpty" id=17]
 
-[sub_resource type="StyleBoxEmpty" id=5]
+[sub_resource type="StyleBoxEmpty" id=18]
 
 [node name="MarginContainer" type="Control"]
 anchor_left = 0.5
@@ -106,9 +106,9 @@ texture = ExtResource( 9 )
 
 [node name="Moon" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 134.831, 70.5403 )
-frames = SubResource( 28 )
+frames = SubResource( 8 )
 animation = "moon_phases"
-frame = 3
+frame = 2
 playing = true
 
 [node name="Star" type="Sprite" parent="Node2D"]
@@ -186,203 +186,55 @@ frame = 1
 [node name="AnimStar1" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 100, 100 )
 scale = Vector2( 2, 2 )
-frames = SubResource( 20 )
-frame = 2
+frames = SubResource( 13 )
 playing = true
 
 [node name="AnimStar2" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 783.325, 75.6697 )
 scale = Vector2( 2, 2 )
-frames = SubResource( 20 )
-frame = 1
+frames = SubResource( 13 )
+frame = 3
 playing = true
 
 [node name="AnimStar3" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 784.66, 194.47 )
 scale = Vector2( 2, 2 )
-frames = SubResource( 20 )
-frame = 2
+frames = SubResource( 13 )
 playing = true
 
 [node name="AnimStar4" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 892.782, 233.181 )
 scale = Vector2( 2, 2 )
-frames = SubResource( 20 )
-frame = 3
+frames = SubResource( 13 )
+frame = 1
 playing = true
 
 [node name="AnimStar5" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 357.511, 89.0181 )
 scale = Vector2( 2, 2 )
-frames = SubResource( 20 )
-frame = 3
+frames = SubResource( 13 )
+frame = 1
 playing = true
 
 [node name="AnimStar8" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 277.421, 163.769 )
 scale = Vector2( 2, 2 )
-frames = SubResource( 20 )
-frame = 3
+frames = SubResource( 13 )
+frame = 1
 playing = true
 
 [node name="AnimStar6" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 874.094, 32.9548 )
 scale = Vector2( 2, 2 )
-frames = SubResource( 20 )
-frame = 1
+frames = SubResource( 13 )
+frame = 3
 playing = true
 
 [node name="AnimStar7" type="AnimatedSprite" parent="Node2D"]
 position = Vector2( 645.836, 142.412 )
 scale = Vector2( 2, 2 )
-frames = SubResource( 20 )
-playing = true
-
-[node name="Node2D2" type="Node2D" parent="."]
-
-[node name="Sprite" type="Sprite" parent="Node2D2"]
-modulate = Color( 0.101961, 0.0823529, 0.14902, 1 )
-position = Vector2( 511.75, 299.75 )
-scale = Vector2( 1024.5, 600.5 )
-texture = ExtResource( 5 )
-
-[node name="Ground" type="Sprite" parent="Node2D2"]
-modulate = Color( 0.44, 0.44, 0.44, 1 )
-position = Vector2( 512, 450 )
-texture = ExtResource( 9 )
-
-[node name="Moon" type="AnimatedSprite" parent="Node2D2"]
-position = Vector2( 134.831, 70.5403 )
-frames = SubResource( 28 )
-animation = "moon_phases"
-frame = 3
-playing = true
-
-[node name="Star" type="Sprite" parent="Node2D2"]
-position = Vector2( 209.57, 72.0814 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 7 )
-hframes = 2
-
-[node name="Star2" type="Sprite" parent="Node2D2"]
-position = Vector2( 383.099, 228.258 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 7 )
-hframes = 2
-
-[node name="Star9" type="Sprite" parent="Node2D2"]
-position = Vector2( 827.601, 142.828 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 7 )
-hframes = 2
-frame = 1
-
-[node name="Star10" type="Sprite" parent="Node2D2"]
-position = Vector2( 299.004, 10.6787 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 7 )
-hframes = 2
-frame = 1
-
-[node name="Star11" type="Sprite" parent="Node2D2"]
-position = Vector2( 182.873, 92.104 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 7 )
-hframes = 2
-frame = 1
-
-[node name="Star3" type="Sprite" parent="Node2D2"]
-position = Vector2( 672.759, 48.0543 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 7 )
-hframes = 2
-
-[node name="Star4" type="Sprite" parent="Node2D2"]
-position = Vector2( 925.044, 128.145 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 7 )
-hframes = 2
-
-[node name="Star5" type="Sprite" parent="Node2D2"]
-position = Vector2( 56.0632, 225.588 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 7 )
-hframes = 2
-
-[node name="Star6" type="Sprite" parent="Node2D2"]
-position = Vector2( 166.855, 180.203 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 7 )
-hframes = 2
-frame = 1
-
-[node name="Star7" type="Sprite" parent="Node2D2"]
-position = Vector2( 656.741, 222.918 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 7 )
-hframes = 2
-frame = 1
-
-[node name="Star8" type="Sprite" parent="Node2D2"]
-position = Vector2( 604.682, 88.0995 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 7 )
-hframes = 2
-frame = 1
-
-[node name="AnimStar1" type="AnimatedSprite" parent="Node2D2"]
-position = Vector2( 100, 100 )
-scale = Vector2( 2, 2 )
-frames = SubResource( 20 )
+frames = SubResource( 13 )
 frame = 2
-playing = true
-
-[node name="AnimStar2" type="AnimatedSprite" parent="Node2D2"]
-position = Vector2( 783.325, 75.6697 )
-scale = Vector2( 2, 2 )
-frames = SubResource( 20 )
-frame = 1
-playing = true
-
-[node name="AnimStar3" type="AnimatedSprite" parent="Node2D2"]
-position = Vector2( 784.66, 194.47 )
-scale = Vector2( 2, 2 )
-frames = SubResource( 20 )
-frame = 2
-playing = true
-
-[node name="AnimStar4" type="AnimatedSprite" parent="Node2D2"]
-position = Vector2( 892.782, 233.181 )
-scale = Vector2( 2, 2 )
-frames = SubResource( 20 )
-frame = 3
-playing = true
-
-[node name="AnimStar5" type="AnimatedSprite" parent="Node2D2"]
-position = Vector2( 357.511, 89.0181 )
-scale = Vector2( 2, 2 )
-frames = SubResource( 20 )
-frame = 3
-playing = true
-
-[node name="AnimStar8" type="AnimatedSprite" parent="Node2D2"]
-position = Vector2( 277.421, 163.769 )
-scale = Vector2( 2, 2 )
-frames = SubResource( 20 )
-frame = 3
-playing = true
-
-[node name="AnimStar6" type="AnimatedSprite" parent="Node2D2"]
-position = Vector2( 874.094, 32.9548 )
-scale = Vector2( 2, 2 )
-frames = SubResource( 20 )
-frame = 1
-playing = true
-
-[node name="AnimStar7" type="AnimatedSprite" parent="Node2D2"]
-position = Vector2( 645.836, 142.412 )
-scale = Vector2( 2, 2 )
-frames = SubResource( 20 )
 playing = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -485,11 +337,11 @@ margin_right = 1024.0
 margin_bottom = 600.0
 size_flags_horizontal = 7
 size_flags_vertical = 3
-custom_styles/hover = SubResource( 1 )
-custom_styles/pressed = SubResource( 2 )
-custom_styles/focus = SubResource( 3 )
-custom_styles/disabled = SubResource( 4 )
-custom_styles/normal = SubResource( 5 )
+custom_styles/hover = SubResource( 14 )
+custom_styles/pressed = SubResource( 15 )
+custom_styles/focus = SubResource( 16 )
+custom_styles/disabled = SubResource( 17 )
+custom_styles/normal = SubResource( 18 )
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color_hover = Color( 0.603922, 0.219608, 0.219608, 1 )
 custom_colors/font_color_pressed = Color( 0.384314, 0.141176, 0.141176, 1 )

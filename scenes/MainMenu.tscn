@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://scripts/Play.gd" type="Script" id=1]
 [ext_resource path="res://fonts/titlescreen_fonts/options_font/nightmare_outline.tres" type="DynamicFont" id=2]
@@ -10,16 +10,21 @@
 [ext_resource path="res://sprites/star/star1_sheet.png" type="Texture" id=8]
 [ext_resource path="res://sprites/ground.png" type="Texture" id=9]
 [ext_resource path="res://sprites/moon/moon_spritesheet.png" type="Texture" id=10]
+[ext_resource path="res://fonts/titlescreen_fonts/paragraph_font/nightmare_outline.tres" type="DynamicFont" id=11]
+[ext_resource path="res://scripts/Quit.gd" type="Script" id=12]
 
 [sub_resource type="AtlasTexture" id=1]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 0, 0, 2, 2 )
 
 [sub_resource type="AtlasTexture" id=2]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 2, 0, 2, 2 )
 
 [sub_resource type="AtlasTexture" id=3]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 4, 0, 2, 2 )
 
@@ -34,37 +39,30 @@ animations = [ {
 } ]
 
 [sub_resource type="AtlasTexture" id=6]
-flags = 4
 atlas = ExtResource( 10 )
 region = Rect2( 52, 0, 52, 52 )
 
 [sub_resource type="AtlasTexture" id=7]
-flags = 4
 atlas = ExtResource( 10 )
 region = Rect2( 104, 0, 52, 52 )
 
 [sub_resource type="AtlasTexture" id=8]
-flags = 4
 atlas = ExtResource( 10 )
 region = Rect2( 156, 0, 52, 52 )
 
 [sub_resource type="AtlasTexture" id=9]
-flags = 4
 atlas = ExtResource( 10 )
 region = Rect2( 208, 0, 52, 52 )
 
 [sub_resource type="AtlasTexture" id=10]
-flags = 4
 atlas = ExtResource( 10 )
 region = Rect2( 260, 0, 52, 52 )
 
 [sub_resource type="AtlasTexture" id=11]
-flags = 4
 atlas = ExtResource( 10 )
 region = Rect2( 312, 0, 52, 52 )
 
 [sub_resource type="AtlasTexture" id=12]
-flags = 4
 atlas = ExtResource( 10 )
 region = Rect2( 364, 0, 52, 52 )
 
@@ -105,6 +103,16 @@ animations = [ {
 [sub_resource type="StyleBoxEmpty" id=27]
 
 [sub_resource type="StyleBoxEmpty" id=28]
+
+[sub_resource type="StyleBoxEmpty" id=29]
+
+[sub_resource type="StyleBoxEmpty" id=30]
+
+[sub_resource type="StyleBoxEmpty" id=31]
+
+[sub_resource type="StyleBoxEmpty" id=32]
+
+[sub_resource type="StyleBoxEmpty" id=33]
 
 [node name="MainMenu" type="Control"]
 anchor_left = 0.5
@@ -259,32 +267,46 @@ texture = ExtResource( 9 )
 position = Vector2( 134.831, 70.5403 )
 frames = SubResource( 13 )
 animation = "moon_phases"
-frame = 4
+frame = 2
 playing = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_right = 1024.0
 margin_bottom = 600.0
-custom_constants/separation = 100
+custom_constants/separation = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Title" type="Label" parent="VBoxContainer"]
-margin_top = 83.0
+[node name="Title Info" type="VBoxContainer" parent="VBoxContainer"]
+margin_top = 90.0
 margin_right = 1024.0
-margin_bottom = 166.0
+margin_bottom = 209.0
 size_flags_vertical = 6
+
+[node name="Title" type="Label" parent="VBoxContainer/Title Info"]
+margin_right = 1024.0
+margin_bottom = 83.0
 custom_fonts/font = ExtResource( 3 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 0.603922, 0.219608, 0.219608, 1 )
 text = "Number Horde"
 align = 1
 valign = 1
 
-[node name="Options" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 350.0
+[node name="StudioName" type="Label" parent="VBoxContainer/Title Info"]
+margin_top = 87.0
 margin_right = 1024.0
-margin_bottom = 534.0
+margin_bottom = 119.0
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 11 )
+custom_colors/font_color = Color( 0.619608, 0.619608, 0.619608, 1 )
+text = "A Tri-Wight Studios Game"
+align = 1
+
+[node name="Options" type="VBoxContainer" parent="VBoxContainer"]
+margin_top = 300.0
+margin_right = 1024.0
+margin_bottom = 552.0
 size_flags_vertical = 2
 custom_constants/separation = 20
 alignment = 1
@@ -339,6 +361,22 @@ custom_colors/font_color_hover = Color( 0.603922, 0.219608, 0.219608, 1 )
 custom_colors/font_color_pressed = Color( 0.384314, 0.141176, 0.141176, 1 )
 text = "Credits"
 script = ExtResource( 5 )
+
+[node name="Quit" type="Button" parent="VBoxContainer/Options"]
+margin_top = 204.0
+margin_right = 1024.0
+margin_bottom = 252.0
+custom_styles/hover = SubResource( 29 )
+custom_styles/pressed = SubResource( 30 )
+custom_styles/focus = SubResource( 31 )
+custom_styles/disabled = SubResource( 32 )
+custom_styles/normal = SubResource( 33 )
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color_hover = Color( 0.603922, 0.219608, 0.219608, 1 )
+custom_colors/font_color_pressed = Color( 0.384314, 0.141176, 0.141176, 1 )
+text = "Quit"
+script = ExtResource( 12 )
 [connection signal="pressed" from="VBoxContainer/Options/Play" to="VBoxContainer/Options/Play" method="_on_Play_pressed"]
 [connection signal="pressed" from="VBoxContainer/Options/Instructions" to="VBoxContainer/Options/Instructions" method="_on_Instructions_pressed"]
 [connection signal="pressed" from="VBoxContainer/Options/Credits" to="VBoxContainer/Options/Credits" method="_on_Credits_pressed"]
+[connection signal="pressed" from="VBoxContainer/Options/Quit" to="VBoxContainer/Options/Quit" method="_on_Quit_pressed"]
