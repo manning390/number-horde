@@ -139,7 +139,7 @@ func _on_Hand_hitbox_area_exited(area):
 		barrier = null
 
 func hit_barrier():
-	barrier.health -= answer
+	barrier.health -= abs(answer)
 	var dmg = Global.instance_node(floating_text, hand_pos.global_position, Global.node_creation_parent)
 	dmg.set_text(answer)
 	dmg.set_color(Color.red)

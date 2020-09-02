@@ -15,8 +15,6 @@ onready var stars_node = $Sky_layer/Stars
 
 var countdown_color = 0
 
-var TOTAL_BARRICADES = 4
-var TEST = 0
 const MOCK_PLAYERS = 2
 
 const PORT = 443
@@ -45,14 +43,6 @@ var max_zombie_spawn = 5
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# Cert stuff
-	_server.bind_ip = "*"
-	_server.private_key = CryptoKey.new();
-	_server.private_key.load("res://keys/privkey.key")
-	_server.ssl_certificate = X509Certificate.new()
-	_server.ssl_certificate.load("res://keys/cert.crt")
-	_server.ca_chain = X509Certificate.new()
-	_server.ca_chain.load("res://keys/chain.crt")
 
 	Global.node_creation_parent = self
 	_server.connect("client_connected", self, "_on_connect")
@@ -120,12 +110,6 @@ func _on_zombie_hit(player_id, equation, answer, points, first):
 			"points": points,
 			"first": first
 		})
-
-func spawn_barricades():
-	for i in TOTAL_BARRICADES:
-		var b = Global.instance_node(barricade_node, Global.get_barricade_spawn_pos(i), Global.node_creation_parent)
-		b.connect("barricade_created", self, "_on_barricade_created")
-		b.connect("barricade_hit", self, "_on_barricade_hit")
 
 func spawn_player(id, isMock = false):
 	# Create a new player

@@ -15,7 +15,7 @@
                 <label class="mx-auto inline-block">
                     <span class="mb-2 inline-block">Server IP</span>
                     <div class="flex">
-                        <input type="text" class="p-3 leading-none rounded-l-lg text-black text-center " v-model="ipData" v-on:keyup.enter="connect" placeholder="127.0.0.1:9080">
+                        <input type="text" class="p-3 leading-none rounded-l-lg text-black text-center " v-model="ipData" v-on:keyup.enter="connect" placeholder="127.0.0.1:443">
                         <button class="bg-blue-500 px-6 rounded-r-lg text-white font-bond" v-on:click="connect">Connect</button>
                     </div>
                 </label>
@@ -99,9 +99,9 @@ export default {
             this.clientState = ClientState.connecting;
             this.error = "";
             if (this.ipData === "") {
-                this.ipData = "127.0.0.1:9080";
+                this.ipData = "127.0.0.1:443";
             }
-            this.connection = new WebSocket("wss://" + this.ipData);
+            this.connection = new WebSocket("ws://" + this.ipData);
 
             this.connection.onmessage = async (e) => {
                 const encoded = await new Response(e.data).text();
@@ -114,8 +114,7 @@ export default {
                 }
             }
             this.connection.onopen = (e) => {
-                console.log(e);
-                // console.log("Successfully connected to the server!");
+                console.log("Successfully connected to the server!", e);
                 this.clientState = ClientState.connected;
             }
             this.connection.onerror = (e) => {
